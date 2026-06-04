@@ -1,0 +1,42 @@
+{
+  "state_id": "service_state",
+  "mode": "service",
+  "current_phase": "initialized",
+  "current_focus": "repository",
+  "focus_stack": [],
+  "active_protocols": [
+    "Protocols/common/startup.md",
+    "Protocols/common/context_loading.md",
+    "Protocols/common/state_update.md",
+    "Protocols/common/issue_lifecycle.md",
+    "Protocols/common/linked_issues.md",
+    "Protocols/service/service_mode.md"
+  ],
+  "allowed_context": [
+    "README.md",
+    "State/service_state.json",
+    "State/state_schema.md",
+    "Protocols/common/startup.md",
+    "Protocols/common/context_loading.md",
+    "Protocols/common/state_update.md",
+    "Protocols/service/service_mode.md",
+    "Issues/registry.jsonl",
+    "Repository/file_index.jsonl",
+    "Repository/link_graph.md"
+  ],
+  "blocked_context": [
+    "ТЗ-архив реализации",
+    "checkpoint-архивы агента-исполнителя",
+    "временные файлы разработки",
+    "закрытые concept-файлы без перехода в Execution Mode"
+  ],
+  "pending_user_action": "none",
+  "next_expected_step": "startup_or_create_service_issue",
+  "last_persisted_at": "2026-06-04T22:00:00Z",
+  "state_revision": 1,
+  "state_hash": "bootstrap",
+  "context_summary": "Система инициализирована. Активный service issue не выбран. Следующий шаг: запуск или создание service issue.",
+  "status": "active",
+  "active_issue_id": null,
+  "registry_path": "Issues/registry.jsonl"
+}
