@@ -1,0 +1,13 @@
+{
+  "input_id": "input_YYYYMMDD_HHMMSS_slug",
+  "created_at": "YYYY-MM-DDTHH:MM:SSZ",
+  "created_in_mode": "service|execution",
+  "entry_point": "Inbox/<input_id>/entry.md",
+  "entry_source": "chat_text|attached_file|github_file",
+  "attachments": [],
+  "explicit_issue_candidates": [],
+  "generated_issue_candidates": [],
+  "linked_registry": "Issues/registry.jsonl",
+  "cleanup_status": "active",
+  "cleanup_rule": "clean only after all linked issues are closed or rejected and compact audit record is preserved"
+}
