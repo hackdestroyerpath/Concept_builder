@@ -1,0 +1,45 @@
+{
+  "state_id": "execution_index_state",
+  "mode": "execution",
+  "current_phase": "initialized",
+  "current_focus": "concept_index",
+  "focus_stack": [],
+  "active_protocols": [
+    "Protocols/common/startup.md",
+    "Protocols/common/context_loading.md",
+    "Protocols/common/state_update.md",
+    "Protocols/common/issue_lifecycle.md",
+    "Protocols/common/linked_issues.md",
+    "Protocols/execution/execution_mode.md",
+    "Protocols/execution/concept_export.md"
+  ],
+  "allowed_context": [
+    "README.md",
+    "State/execution_index_state.json",
+    "State/state_schema.md",
+    "Protocols/common/startup.md",
+    "Protocols/common/context_loading.md",
+    "Protocols/common/state_update.md",
+    "Protocols/execution/execution_mode.md",
+    "Concepts/README.md",
+    "Concepts/_template/README.md",
+    "Repository/file_index.jsonl",
+    "Repository/link_graph.md"
+  ],
+  "blocked_context": [
+    "ТЗ-архив реализации",
+    "checkpoint-архивы агента-исполнителя",
+    "системные протоколы без service issue",
+    "все концепции без выбора concept_slug"
+  ],
+  "pending_user_action": "choose_or_create_concept",
+  "next_expected_step": "create_or_open_concept",
+  "last_persisted_at": "2026-06-04T22:00:00Z",
+  "state_revision": 1,
+  "state_hash": "bootstrap",
+  "context_summary": "Концепции ещё не созданы. Следующий шаг: создать новую концепцию или открыть существующую.",
+  "status": "waiting_user",
+  "active_concept_slug": null,
+  "concepts": [],
+  "concepts_root": "Concepts/"
+}
