@@ -7,7 +7,7 @@
 {"path":"State/execution_index_state.json","kind":"state","owner_mode":"execution","purpose":"Execution state","parent":"README.md","status":"active"}
 {"path":"Protocols/common/startup.md","kind":"protocol","owner_mode":"common","purpose":"Запуск режима","parent":"README.md","status":"active"}
 {"path":"Protocols/common/context_loading.md","kind":"protocol","owner_mode":"common","purpose":"Загрузка контекста","parent":"README.md","status":"active"}
-{"path":"Protocols/common/state_update.md","kind":"protocol","owner_mode":"common","purpose":"Persistence rules","parent":"README.md","status":"active"}
+{"path":"Protocols/common/state_update.md","kind":"protocol","owner_mode":"common","purpose":"Правила persistence","parent":"README.md","status":"active"}
 {"path":"Protocols/common/issue_lifecycle.md","kind":"protocol","owner_mode":"common","purpose":"Жизненный цикл issue","parent":"README.md","status":"active"}
 {"path":"Protocols/common/linked_issues.md","kind":"protocol","owner_mode":"common","purpose":"Complex и linked issues","parent":"README.md","status":"active"}
 {"path":"Protocols/service/service_mode.md","kind":"protocol","owner_mode":"service","purpose":"Service Mode","parent":"README.md","status":"active"}
@@ -17,6 +17,15 @@
 {"path":"Issues/registry.jsonl","kind":"registry","owner_mode":"service","purpose":"Service issue registry","parent":"Issues/README.md","status":"active"}
 {"path":"Issues/active/README.md","kind":"issue","owner_mode":"service","purpose":"Active service issue area","parent":"Issues/README.md","status":"active"}
 {"path":"Issues/templates/README.md","kind":"template","owner_mode":"service","purpose":"Issue templates guide","parent":"Issues/README.md","status":"active"}
+{"path":"Issues/templates/simple_issue/state.json","kind":"template","owner_mode":"service","purpose":"Simple issue state template","parent":"Issues/templates/README.md","status":"template"}
+{"path":"Issues/templates/simple_issue/reason.md","kind":"template","owner_mode":"service","purpose":"Simple issue reason template","parent":"Issues/templates/README.md","status":"template"}
+{"path":"Issues/templates/simple_issue/qa.md","kind":"template","owner_mode":"service","purpose":"Simple issue QA template","parent":"Issues/templates/README.md","status":"template"}
+{"path":"Issues/templates/simple_issue/requirements.md","kind":"template","owner_mode":"service","purpose":"Simple issue requirements template","parent":"Issues/templates/README.md","status":"template"}
+{"path":"Issues/templates/simple_issue/plan.md","kind":"template","owner_mode":"service","purpose":"Simple issue plan template","parent":"Issues/templates/README.md","status":"template"}
+{"path":"Issues/templates/simple_issue/solution.md","kind":"template","owner_mode":"service","purpose":"Simple issue solution template","parent":"Issues/templates/README.md","status":"template"}
+{"path":"Issues/templates/simple_issue/contract.md","kind":"template","owner_mode":"service","purpose":"Simple issue contract template","parent":"Issues/templates/README.md","status":"template"}
+{"path":"Issues/templates/simple_issue/output/report.md","kind":"template","owner_mode":"service","purpose":"Simple issue report template","parent":"Issues/templates/README.md","status":"template"}
+{"path":"Issues/templates/simple_issue/output/attachments/README.md","kind":"template","owner_mode":"service","purpose":"Simple issue output attachments guide","parent":"Issues/templates/simple_issue/output/report.md","status":"template"}
 {"path":"Inbox/README.md","kind":"inbox","owner_mode":"common","purpose":"Input persistence area","parent":"README.md","status":"active"}
 {"path":"Inbox/template/entry.md","kind":"template","owner_mode":"common","purpose":"Input entry template","parent":"Inbox/README.md","status":"template"}
 {"path":"Inbox/template/input_manifest.json","kind":"template","owner_mode":"common","purpose":"Input manifest template","parent":"Inbox/README.md","status":"template"}
