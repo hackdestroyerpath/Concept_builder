@@ -36,7 +36,7 @@
   "next_expected_step": "create_or_open_concept",
   "last_persisted_at": "2026-06-04T22:00:00Z",
   "state_revision": 1,
-  "state_hash": "bootstrap",
+  "state_hash": "sha256:47bfcc06733ea5970915c35ba91f809ecdbc2e7812109e7e8e14b80cd3b90739",
   "context_summary": "Концепции ещё не созданы. Следующий шаг: создать новую концепцию или открыть существующую.",
   "status": "waiting_user",
   "active_concept_slug": null,
