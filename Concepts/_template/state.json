@@ -1,0 +1,33 @@
+{
+  "state_id": "concept_state_template",
+  "mode": "execution",
+  "current_phase": "template",
+  "current_focus": "concept",
+  "focus_stack": [],
+  "active_protocols": [
+    "Protocols/execution/execution_mode.md",
+    "Protocols/execution/concept_export.md"
+  ],
+  "allowed_context": [
+    "README.md",
+    "manifest.jsonl",
+    "structure.md",
+    "state.json"
+  ],
+  "blocked_context": [
+    "system protocols без Service Mode",
+    "другие концепции без explicit link"
+  ],
+  "pending_user_action": "none",
+  "next_expected_step": "replace_template_values",
+  "last_persisted_at": "2026-06-05T00:30:00Z",
+  "state_revision": 0,
+  "state_hash": "template",
+  "context_summary": "Шаблон состояния концепции. Не использовать как state реальной концепции без замены значений.",
+  "status": "active",
+  "concept_slug": "<concept_slug>",
+  "active_issue_id": null,
+  "export_status": "not_ready",
+  "last_export_archive": null,
+  "last_export_report": null
+}
