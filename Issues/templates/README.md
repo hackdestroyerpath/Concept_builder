@@ -8,7 +8,7 @@
 
 ## Назначение
 
-Папка хранит компактные шаблоны для создания `state.json`, `reason.md`, `requirements.md`, `plan.md`, `solution.md`, `contract.md` и `output/report.md` внутри реального issue.
+Папка хранит компактные шаблоны для создания `state.json`, `reason.md`, `qa.md`, `requirements.md`, `plan.md`, `solution.md`, `contract.md` и `output/report.md` внутри реального issue.
 
 ## Минимальный комплект реального issue
 
@@ -21,8 +21,22 @@
 ├── plan.md
 ├── solution.md
 ├── contract.md
-└── output/report.md
+└── output/
+    ├── report.md
+    └── attachments/
 ```
+
+## Файлы шаблона
+
+- [`simple_issue/state.json`](simple_issue/state.json)
+- [`simple_issue/reason.md`](simple_issue/reason.md)
+- [`simple_issue/qa.md`](simple_issue/qa.md)
+- [`simple_issue/requirements.md`](simple_issue/requirements.md)
+- [`simple_issue/plan.md`](simple_issue/plan.md)
+- [`simple_issue/solution.md`](simple_issue/solution.md)
+- [`simple_issue/contract.md`](simple_issue/contract.md)
+- [`simple_issue/output/report.md`](simple_issue/output/report.md)
+- [`simple_issue/output/attachments/README.md`](simple_issue/output/attachments/README.md)
 
 ## Правило использования
 
