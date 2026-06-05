@@ -34,7 +34,7 @@
   "next_expected_step": "startup_or_create_service_issue",
   "last_persisted_at": "2026-06-04T22:00:00Z",
   "state_revision": 1,
-  "state_hash": "bootstrap",
+  "state_hash": "sha256:4ecc720957487fb75a865c0f00d936ceebfb4eb16fb279e99fdf3b029c2570e2",
   "context_summary": "Система инициализирована. Активный service issue не выбран. Следующий шаг: запуск или создание service issue.",
   "status": "active",
   "active_issue_id": null,
