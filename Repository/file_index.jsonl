@@ -1,0 +1,38 @@
+{"path":"README.md","kind":"entry","owner_mode":"repository","purpose":"Главная точка входа","parent":null,"status":"active"}
+{"path":"Instructions/README.md","kind":"instruction","owner_mode":"common","purpose":"Навигация project instructions","parent":"README.md","status":"active"}
+{"path":"Instructions/concept_builder_project_instruction.md","kind":"instruction","owner_mode":"execution","purpose":"Project instruction для Execution Mode","parent":"Instructions/README.md","status":"active"}
+{"path":"Instructions/concept_builder_service_mode_project_instruction.md","kind":"instruction","owner_mode":"service","purpose":"Project instruction для Service Mode","parent":"Instructions/README.md","status":"active"}
+{"path":"State/state_schema.md","kind":"schema","owner_mode":"common","purpose":"Схема state","parent":"README.md","status":"active"}
+{"path":"State/service_state.json","kind":"state","owner_mode":"service","purpose":"Service state","parent":"README.md","status":"active"}
+{"path":"State/execution_index_state.json","kind":"state","owner_mode":"execution","purpose":"Execution state","parent":"README.md","status":"active"}
+{"path":"Protocols/common/startup.md","kind":"protocol","owner_mode":"common","purpose":"Запуск режима","parent":"README.md","status":"active"}
+{"path":"Protocols/common/context_loading.md","kind":"protocol","owner_mode":"common","purpose":"Загрузка контекста","parent":"README.md","status":"active"}
+{"path":"Protocols/common/state_update.md","kind":"protocol","owner_mode":"common","purpose":"Persistence rules","parent":"README.md","status":"active"}
+{"path":"Protocols/common/issue_lifecycle.md","kind":"protocol","owner_mode":"common","purpose":"Жизненный цикл issue","parent":"README.md","status":"active"}
+{"path":"Protocols/common/linked_issues.md","kind":"protocol","owner_mode":"common","purpose":"Complex и linked issues","parent":"README.md","status":"active"}
+{"path":"Protocols/service/service_mode.md","kind":"protocol","owner_mode":"service","purpose":"Service Mode","parent":"README.md","status":"active"}
+{"path":"Protocols/execution/execution_mode.md","kind":"protocol","owner_mode":"execution","purpose":"Execution Mode","parent":"README.md","status":"active"}
+{"path":"Protocols/execution/concept_export.md","kind":"protocol","owner_mode":"execution","purpose":"Concept export","parent":"Protocols/execution/execution_mode.md","status":"active"}
+{"path":"Issues/README.md","kind":"issue","owner_mode":"service","purpose":"Service issue area","parent":"README.md","status":"active"}
+{"path":"Issues/registry.jsonl","kind":"registry","owner_mode":"service","purpose":"Service issue registry","parent":"Issues/README.md","status":"active"}
+{"path":"Issues/active/README.md","kind":"issue","owner_mode":"service","purpose":"Active service issue area","parent":"Issues/README.md","status":"active"}
+{"path":"Issues/templates/README.md","kind":"template","owner_mode":"service","purpose":"Issue templates guide","parent":"Issues/README.md","status":"active"}
+{"path":"Inbox/README.md","kind":"inbox","owner_mode":"common","purpose":"Input persistence area","parent":"README.md","status":"active"}
+{"path":"Inbox/template/entry.md","kind":"template","owner_mode":"common","purpose":"Input entry template","parent":"Inbox/README.md","status":"template"}
+{"path":"Inbox/template/input_manifest.json","kind":"template","owner_mode":"common","purpose":"Input manifest template","parent":"Inbox/README.md","status":"template"}
+{"path":"Inbox/template/attachments/README.md","kind":"template","owner_mode":"common","purpose":"Input attachments guide","parent":"Inbox/README.md","status":"template"}
+{"path":"Concepts/README.md","kind":"concept","owner_mode":"execution","purpose":"Concepts area","parent":"README.md","status":"active"}
+{"path":"Concepts/_template/README.md","kind":"concept","owner_mode":"execution","purpose":"Concept template entry","parent":"Concepts/README.md","status":"template"}
+{"path":"Concepts/_template/about.md","kind":"concept","owner_mode":"execution","purpose":"Concept about page","parent":"Concepts/_template/README.md","status":"template"}
+{"path":"Concepts/_template/operating_model.md","kind":"concept","owner_mode":"execution","purpose":"Concept operating model","parent":"Concepts/_template/README.md","status":"template"}
+{"path":"Concepts/_template/requirements.md","kind":"concept","owner_mode":"execution","purpose":"Concept requirements","parent":"Concepts/_template/README.md","status":"template"}
+{"path":"Concepts/_template/process.md","kind":"concept","owner_mode":"execution","purpose":"Concept process","parent":"Concepts/_template/README.md","status":"template"}
+{"path":"Concepts/_template/pages/README.md","kind":"concept","owner_mode":"execution","purpose":"Extra concept pages area","parent":"Concepts/_template/README.md","status":"template"}
+{"path":"Concepts/_template/Issues/README.md","kind":"issue","owner_mode":"execution","purpose":"Concept issue area","parent":"Concepts/_template/README.md","status":"template"}
+{"path":"Concepts/_template/Issues/registry.jsonl","kind":"registry","owner_mode":"execution","purpose":"Concept issue registry","parent":"Concepts/_template/Issues/README.md","status":"template"}
+{"path":"Concepts/_template/Issues/active/README.md","kind":"issue","owner_mode":"execution","purpose":"Active concept issue area","parent":"Concepts/_template/Issues/README.md","status":"template"}
+{"path":"Concepts/_template/manifest.jsonl","kind":"manifest","owner_mode":"execution","purpose":"Concept manifest template","parent":"Concepts/_template/README.md","status":"template"}
+{"path":"Concepts/_template/structure.md","kind":"concept","owner_mode":"execution","purpose":"Concept structure map","parent":"Concepts/_template/README.md","status":"template"}
+{"path":"Concepts/_template/state.json","kind":"state","owner_mode":"execution","purpose":"Concept state template","parent":"Concepts/_template/README.md","status":"template"}
+{"path":"Repository/file_index.jsonl","kind":"index","owner_mode":"repository","purpose":"Repository file index","parent":"README.md","status":"active"}
+{"path":"Repository/link_graph.md","kind":"index","owner_mode":"repository","purpose":"Repository link graph","parent":"README.md","status":"active"}
