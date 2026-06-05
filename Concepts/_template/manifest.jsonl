@@ -1,0 +1,12 @@
+{"path":"README.md","kind":"concept","purpose":"Точка входа концепции","parent":"Concepts/README.md","links":["about.md","operating_model.md","requirements.md","process.md","pages/README.md","Issues/README.md","manifest.jsonl","structure.md","state.json"],"status":"template"}
+{"path":"about.md","kind":"concept","purpose":"Описание цели, границ и аудитории","parent":"README.md","links":["README.md","operating_model.md","requirements.md","structure.md"],"status":"template"}
+{"path":"operating_model.md","kind":"concept","purpose":"Рабочая модель концепции","parent":"README.md","links":["README.md","about.md","requirements.md","process.md","structure.md"],"status":"template"}
+{"path":"requirements.md","kind":"concept","purpose":"Утверждённые требования концепции","parent":"README.md","links":["README.md","about.md","operating_model.md","Issues/README.md"],"status":"template"}
+{"path":"process.md","kind":"concept","purpose":"Процессы концепции","parent":"README.md","links":["README.md","operating_model.md","requirements.md","structure.md"],"status":"template"}
+{"path":"pages/README.md","kind":"concept","purpose":"Навигация дополнительных страниц","parent":"README.md","links":["../README.md","../manifest.jsonl","../structure.md"],"status":"template"}
+{"path":"Issues/README.md","kind":"issue","purpose":"Папка concept issue","parent":"README.md","links":["registry.jsonl","active/README.md"],"status":"template"}
+{"path":"Issues/registry.jsonl","kind":"registry","purpose":"Пустой реестр concept issue","parent":"Issues/README.md","links":[],"status":"template"}
+{"path":"Issues/active/README.md","kind":"issue","purpose":"Активные concept issue","parent":"Issues/README.md","links":["../README.md","../registry.jsonl"],"status":"template"}
+{"path":"manifest.jsonl","kind":"manifest","purpose":"Машинный манифест концепции","parent":"README.md","links":[],"status":"template"}
+{"path":"structure.md","kind":"concept","purpose":"Карта структуры и ссылок","parent":"README.md","links":["README.md","manifest.jsonl"],"status":"template"}
+{"path":"state.json","kind":"state","purpose":"Локальный state концепции","parent":"README.md","links":[],"status":"template"}
