@@ -24,7 +24,6 @@
 
 ## Плановые файлы
 
-- `Protocols/common/context_loading.md`
 - `Protocols/service/service_mode.md`
 - `Protocols/execution/execution_mode.md`
 
@@ -37,6 +36,9 @@ active_links_present: true
 startup_protocol_created: true
 focus_packet_created: true
 state_update_created: true
-context_loading_created: false
-status: partial_pass
+context_loading_role: covered_by_focus_packet
+status: pass_with_deprecated_alias_note
+notes:
+  - Protocols/common/focus_packet.md является текущим primary source для локального пакета контекста.
+  - Instructions/concept_builder_execution_mode_project_instruction.md физически существует как лишний alias; canonical source: Instructions/concept_builder_project_instruction.md.
 ```
