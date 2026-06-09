@@ -1,16 +1,16 @@
 # Repository link graph
 
-[← Назад к README](../README.md)
+[Назад к README](../README.md)
 
 Связанные файлы:
 - [File index](file_index.jsonl)
 - [Issues registry](../Issues/registry.jsonl)
 - [Inbox](../Inbox/README.md)
-- [Concepts](../Concepts/README.md)
+- [Concepts](../Concepts/root.md)
 
 ## Назначение
 
-Этот файл фиксирует текущую карту достижимости рабочего репозитория и первую orphan-проверку Phase 1.
+Этот файл фиксирует текущую карту достижимости рабочего репозитория и orphan-проверку Phase 1.
 Он не заменяет `Repository/file_index.jsonl`: эта страница нужна для чтения человеком и агентом, а index остаётся машинным источником проверки.
 
 ## Активные узлы Phase 1
@@ -18,11 +18,11 @@
 | Файл | Parent | Достижимость |
 |---|---|---|
 | `README.md` | `null` | root |
-| `Repository/file_index.jsonl` | `README.md` | `README.md` → `Repository/file_index.jsonl` |
-| `Repository/link_graph.md` | `README.md` | `README.md` → `Repository/link_graph.md` |
-| `Issues/registry.jsonl` | `README.md` | `README.md` → `Issues/registry.jsonl` |
-| `Inbox/README.md` | `README.md` | `README.md` → `Inbox/README.md` |
-| `Concepts/README.md` | `README.md` | `README.md` → `Concepts/README.md` |
+| `Repository/file_index.jsonl` | `README.md` | `README.md` -> `Repository/file_index.jsonl` |
+| `Repository/link_graph.md` | `README.md` | `README.md` -> `Repository/link_graph.md` |
+| `Issues/registry.jsonl` | `README.md` | `README.md` -> `Issues/registry.jsonl` |
+| `Inbox/README.md` | `README.md` | `README.md` -> `Inbox/README.md` |
+| `Concepts/root.md` | `README.md` | `README.md` -> `Concepts/root.md` |
 
 ## Плановые узлы, ещё не активные
 

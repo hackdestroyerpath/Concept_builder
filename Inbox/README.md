@@ -1,25 +1,25 @@
 # Inbox
 
-[Back to README](../README.md)
+[Назад к README](../README.md)
 
-Related files:
+Связанные файлы:
 - [Service issue registry](../Issues/registry.jsonl)
 - [Repository file index](../Repository/file_index.jsonl)
 
-## Purpose
+## Назначение
 
-`Inbox/` stores incoming materials that can become service-level or concept-level issues.
-A specific input folder is created only when there is a real input material.
+`Inbox/` хранит входные материалы, из которых могут появляться service-level или concept-level issue.
+Папка конкретного input создаётся только при наличии реального входного материала.
 
-## Input folder rule
+## Правило создания input
 
-A new input uses the path `Inbox/input_id/` and contains `entry.md`, `input_manifest.json`, and optional attachments.
-`input_id` must be stable and readable, for example `input_YYYYMMDD_HHMMSS_slug`.
+Новый input использует путь `Inbox/input_id/` и содержит `entry.md`, `input_manifest.json` и, при необходимости, вложения.
+`input_id` должен быть устойчивым и читаемым, например `input_YYYYMMDD_HHMMSS_slug`.
 
-`entry.md` stores the source material or a short source description.
-`input_manifest.json` links the input with registry records, attachments, and cleanup status.
+`entry.md` хранит исходный материал или краткое описание источника.
+`input_manifest.json` связывает input с registry, вложениями и cleanup status.
 
-## Current status
+## Текущий статус
 
-There are no active input folders.
-Empty folders are not created because GitHub does not store directories without files.
+Активных input folders нет.
+Пустые папки не создаются, потому что GitHub не хранит директории без файлов.
