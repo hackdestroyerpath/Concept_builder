@@ -14,3 +14,4 @@
 {"path":"Protocols/common/focus_packet.md","kind":"protocol","owner_mode":"common","purpose":"Focus packet.","parent":"README.md","primary_source":true,"described_in":"README.md","status":"active"}
 {"path":"Protocols/common/state_update.md","kind":"protocol","owner_mode":"common","purpose":"State update.","parent":"README.md","primary_source":true,"described_in":"README.md","status":"active"}
 {"path":"Protocols/service/service_mode.md","kind":"protocol","owner_mode":"service","purpose":"Service Mode protocol.","parent":"README.md","primary_source":true,"described_in":"README.md","status":"active"}
+{"path":"Protocols/execution/execution_mode.md","kind":"protocol","owner_mode":"execution","purpose":"Execution Mode protocol.","parent":"README.md","primary_source":true,"described_in":"README.md","status":"active"}

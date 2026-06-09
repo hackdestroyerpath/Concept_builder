@@ -19,17 +19,18 @@
 - [Focus packet](../Protocols/common/focus_packet.md)
 - [State update](../Protocols/common/state_update.md)
 - [Service Mode](../Protocols/service/service_mode.md)
+- [Execution Mode](../Protocols/execution/execution_mode.md)
 - [Issues registry](../Issues/registry.jsonl)
 - [Inbox](../Inbox/README.md)
 - [Concepts](../Concepts/root.md)
 
-## Плановые файлы
-
-- `Protocols/execution/execution_mode.md`
-
 ## Проверка
 
 ```yaml
-phase: 4
+phase: 5
 status: pass
+active_files_indexed: true
+active_links_present: true
+service_mode_protocol_created: true
+execution_mode_protocol_created: true
 ```
