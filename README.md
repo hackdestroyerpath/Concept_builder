@@ -11,16 +11,20 @@
 3. Открыть [Repository/link_graph.md](Repository/link_graph.md).
 4. Для Service Mode открыть [State/service_state.json](State/service_state.json).
 5. Для Execution Mode открыть [State/execution_index_state.json](State/execution_index_state.json).
+6. Для startup открыть [Protocols/common/startup.md](Protocols/common/startup.md).
 
 ## Основные файлы
 
 - [Instructions/concept_builder_project_instruction.md](Instructions/concept_builder_project_instruction.md)
 - [Instructions/concept_builder_service_mode_project_instruction.md](Instructions/concept_builder_service_mode_project_instruction.md)
 - [State/state_schema.md](State/state_schema.md)
+- [Protocols/common/startup.md](Protocols/common/startup.md)
+- [Protocols/common/focus_packet.md](Protocols/common/focus_packet.md)
+- [Protocols/common/state_update.md](Protocols/common/state_update.md)
 - [Issues/registry.jsonl](Issues/registry.jsonl)
 - [Inbox/README.md](Inbox/README.md)
 - [Concepts/root.md](Concepts/root.md)
 
 ## Статус
 
-Phase 2 partial: instructions и state созданы, common protocols ещё не созданы.
+Phase 3 partial: startup, focus packet и state update созданы. Context loading canonical path ещё требует repair.
