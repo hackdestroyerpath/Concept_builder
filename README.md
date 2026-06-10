@@ -16,4 +16,4 @@
 - Protocols/execution/execution_mode.md
 - Protocols/issue/issue_lifecycle.md
 
-Статус: Phase 9 target.
+Статус: Phase 9 complete.
