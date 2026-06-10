@@ -1,23 +1,23 @@
-{"path":"README.md","kind":"entry","status":"active"}
-{"path":"Repository/file_index.jsonl","kind":"index","status":"active"}
-{"path":"Repository/link_graph.md","kind":"index","status":"active"}
-{"path":"Repository/link_graph_phase7.md","kind":"index","status":"deprecated"}
-{"path":"Issues/registry.jsonl","kind":"index","status":"active"}
-{"path":"Inbox/README.md","kind":"entry","status":"active"}
-{"path":"Concepts/root.md","kind":"entry","status":"active"}
-{"path":"Instructions/concept_builder_project_instruction.md","kind":"instruction","status":"active"}
-{"path":"Instructions/concept_builder_service_mode_project_instruction.md","kind":"instruction","status":"active"}
-{"path":"Instructions/concept_builder_execution_mode_project_instruction.md","kind":"redirect","status":"deprecated"}
-{"path":"State/service_state.json","kind":"state","status":"active"}
-{"path":"State/execution_index_state.json","kind":"state","status":"active"}
-{"path":"State/state_schema.md","kind":"schema","status":"active"}
-{"path":"Protocols/common/startup.md","kind":"protocol","status":"active"}
-{"path":"Protocols/common/context_loading.md","kind":"protocol","status":"active"}
-{"path":"Protocols/common/focus_packet.md","kind":"protocol","status":"active"}
-{"path":"Protocols/common/state_update.md","kind":"protocol","status":"active"}
-{"path":"Protocols/service/service_mode.md","kind":"protocol","status":"active"}
-{"path":"Protocols/service/input_registry.md","kind":"protocol","status":"active"}
-{"path":"Protocols/execution/execution_mode.md","kind":"protocol","status":"active"}
-{"path":"Protocols/issue/issue_lifecycle.md","kind":"protocol","status":"active"}
-{"path":"Protocols/issue/complex_linked.md","kind":"protocol","status":"active"}
-{"path":"Protocols/release/concept.md","kind":"protocol","status":"active"}
+{"path":"README.md","kind":"entry","owner_mode":"common","purpose":"Точка входа и короткая карта запуска.","parent":null,"primary_source":true,"described_in":"README.md","status":"active"}
+{"path":"Repository/file_index.jsonl","kind":"index","owner_mode":"repository","purpose":"Машинный индекс рабочих файлов.","parent":"README.md","primary_source":true,"described_in":"Repository/link_graph.md","status":"active"}
+{"path":"Repository/link_graph.md","kind":"index","owner_mode":"repository","purpose":"Карта навигации и проверка достижимости.","parent":"README.md","primary_source":false,"described_in":"README.md","status":"active"}
+{"path":"Issues/registry.jsonl","kind":"index","owner_mode":"service","purpose":"Реестр service issue.","parent":"README.md","primary_source":true,"described_in":"Protocols/service/input_registry.md","status":"active"}
+{"path":"Inbox/README.md","kind":"entry","owner_mode":"service","purpose":"Навигация входных материалов.","parent":"README.md","primary_source":false,"described_in":"Protocols/service/input_registry.md","status":"active"}
+{"path":"Concepts/root.md","kind":"entry","owner_mode":"execution","purpose":"Навигация пользовательских концепций.","parent":"README.md","primary_source":false,"described_in":"Protocols/execution/execution_mode.md","status":"active"}
+{"path":"Instructions/concept_builder_project_instruction.md","kind":"instruction","owner_mode":"execution","purpose":"Загрузчик Execution Mode.","parent":"README.md","primary_source":true,"described_in":"README.md","status":"active"}
+{"path":"Instructions/concept_builder_service_mode_project_instruction.md","kind":"instruction","owner_mode":"service","purpose":"Загрузчик Service Mode.","parent":"README.md","primary_source":true,"described_in":"README.md","status":"active"}
+{"path":"State/service_state.json","kind":"state","owner_mode":"service","purpose":"Верхнее состояние Service Mode.","parent":"README.md","primary_source":true,"described_in":"State/state_schema.md","status":"active"}
+{"path":"State/execution_index_state.json","kind":"state","owner_mode":"execution","purpose":"Верхнее состояние Execution Mode.","parent":"README.md","primary_source":true,"described_in":"State/state_schema.md","status":"active"}
+{"path":"State/state_schema.md","kind":"schema","owner_mode":"common","purpose":"Схема state-файлов.","parent":"README.md","primary_source":true,"described_in":"README.md","status":"active"}
+{"path":"Protocols/common/startup.md","kind":"protocol","owner_mode":"common","purpose":"Запуск режима и health marker.","parent":"README.md","primary_source":true,"described_in":"README.md","status":"active"}
+{"path":"Protocols/common/context_loading.md","kind":"protocol","owner_mode":"common","purpose":"Минимальная загрузка контекста.","parent":"README.md","primary_source":true,"described_in":"README.md","status":"active"}
+{"path":"Protocols/common/focus_packet.md","kind":"protocol","owner_mode":"common","purpose":"Состав локального focus packet.","parent":"README.md","primary_source":true,"described_in":"README.md","status":"active"}
+{"path":"Protocols/common/state_update.md","kind":"protocol","owner_mode":"common","purpose":"Правила сохранения state.","parent":"README.md","primary_source":true,"described_in":"README.md","status":"active"}
+{"path":"Protocols/service/service_mode.md","kind":"protocol","owner_mode":"service","purpose":"Рабочий процесс Service Mode.","parent":"README.md","primary_source":true,"described_in":"README.md","status":"active"}
+{"path":"Protocols/service/input_registry.md","kind":"protocol","owner_mode":"service","purpose":"Input, Inbox и registry workflow.","parent":"README.md","primary_source":true,"described_in":"README.md","status":"active"}
+{"path":"Protocols/execution/execution_mode.md","kind":"protocol","owner_mode":"execution","purpose":"Рабочий процесс Execution Mode.","parent":"README.md","primary_source":true,"described_in":"README.md","status":"active"}
+{"path":"Protocols/issue/issue_lifecycle.md","kind":"protocol","owner_mode":"common","purpose":"Жизненный цикл issue.","parent":"README.md","primary_source":true,"described_in":"README.md","status":"active"}
+{"path":"Protocols/issue/complex_linked.md","kind":"protocol","owner_mode":"common","purpose":"Сложные и связанные issue.","parent":"README.md","primary_source":true,"described_in":"Protocols/issue/issue_lifecycle.md","status":"active"}
+{"path":"Protocols/release/concept.md","kind":"protocol","owner_mode":"execution","purpose":"Экспорт и выпуск концепции.","parent":"README.md","primary_source":true,"described_in":"Protocols/execution/execution_mode.md","status":"active"}
+{"path":"Instructions/concept_builder_execution_mode_project_instruction.md","kind":"instruction","owner_mode":"execution","purpose":"Устаревший redirect на canonical instruction.","parent":"Instructions/concept_builder_project_instruction.md","primary_source":false,"described_in":"Repository/file_index.jsonl","status":"deprecated"}
+{"path":"Repository/link_graph_phase7.md","kind":"index","owner_mode":"repository","purpose":"Устаревшая промежуточная заметка графа.","parent":"Repository/link_graph.md","primary_source":false,"described_in":"Repository/file_index.jsonl","status":"deprecated"}
