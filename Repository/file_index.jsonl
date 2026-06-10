@@ -1,6 +1,7 @@
 {"path":"README.md","kind":"entry","status":"active"}
 {"path":"Repository/file_index.jsonl","kind":"index","status":"active"}
 {"path":"Repository/link_graph.md","kind":"index","status":"active"}
+{"path":"Repository/link_graph_phase7.md","kind":"index","status":"deprecated"}
 {"path":"Issues/registry.jsonl","kind":"index","status":"active"}
 {"path":"Inbox/README.md","kind":"entry","status":"active"}
 {"path":"Concepts/root.md","kind":"entry","status":"active"}
@@ -11,10 +12,12 @@
 {"path":"State/execution_index_state.json","kind":"state","status":"active"}
 {"path":"State/state_schema.md","kind":"schema","status":"active"}
 {"path":"Protocols/common/startup.md","kind":"protocol","status":"active"}
+{"path":"Protocols/common/context_loading.md","kind":"protocol","status":"active"}
 {"path":"Protocols/common/focus_packet.md","kind":"protocol","status":"active"}
 {"path":"Protocols/common/state_update.md","kind":"protocol","status":"active"}
 {"path":"Protocols/service/service_mode.md","kind":"protocol","status":"active"}
+{"path":"Protocols/service/input_registry.md","kind":"protocol","status":"active"}
 {"path":"Protocols/execution/execution_mode.md","kind":"protocol","status":"active"}
 {"path":"Protocols/issue/issue_lifecycle.md","kind":"protocol","status":"active"}
 {"path":"Protocols/issue/complex_linked.md","kind":"protocol","status":"active"}
-{"path":"Repository/link_graph_phase7.md","kind":"index","status":"deprecated"}
+{"path":"Protocols/release/concept.md","kind":"protocol","status":"active"}
