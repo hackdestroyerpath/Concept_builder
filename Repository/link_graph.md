@@ -20,6 +20,7 @@
 - [State update](../Protocols/common/state_update.md)
 - [Service Mode](../Protocols/service/service_mode.md)
 - [Execution Mode](../Protocols/execution/execution_mode.md)
+- [Issue lifecycle](../Protocols/issue/issue_lifecycle.md)
 - [Issues registry](../Issues/registry.jsonl)
 - [Inbox](../Inbox/README.md)
 - [Concepts](../Concepts/root.md)
@@ -27,10 +28,10 @@
 ## Проверка
 
 ```yaml
-phase: 5
+phase: 6
 status: pass
 active_files_indexed: true
 active_links_present: true
-service_mode_protocol_created: true
-execution_mode_protocol_created: true
+issue_lifecycle_created: true
+probe_file_removed: true
 ```
