@@ -22,3 +22,6 @@
 {"path":"Templates/issue/README.md","status":"active"}
 {"path":"Templates/concept/README.md","status":"active"}
 {"path":"Checks/final.md","status":"active"}
+{"path":"Repository/file_index_extra.jsonl","status":"deprecated"}
+{"path":"Repository/link_graph_phase7.md","status":"deprecated"}
+{"path":"Instructions/concept_builder_execution_mode_project_instruction.md","status":"deprecated"}
