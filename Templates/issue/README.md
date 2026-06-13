@@ -4,7 +4,7 @@
 
 ## Назначение
 
-Summary-шаблон структуры complex issue. Primary workflow описан в [issue_lifecycle.md](../../Protocols/issue/issue_lifecycle.md); этот файл не заменяет protocol.
+Summary-шаблон структуры service или concept issue. Primary workflow описан в [issue_lifecycle.md](../../Protocols/issue/issue_lifecycle.md); этот файл не заменяет protocol.
 
 ## Связанные файлы
 
@@ -30,4 +30,5 @@ output/attachments/    # только если есть вложения
 - `output/report.md` — единственное допустимое имя отчёта.
 - Empty decorative files не создаются.
 - Reason mirror проверяется byte-for-byte, если issue создаётся из user-facing reason.
-- Closure требует registry/state persistence и link/orphan check.
+- Closure требует registry/state persistence, output/report, parent-child propagation and link/orphan check.
+- Concept issue дополнительно обновляет local manifest, structure, concept state and local registry.
