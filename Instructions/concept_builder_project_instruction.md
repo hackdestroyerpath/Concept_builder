@@ -25,7 +25,7 @@
 
 ## Рабочий режим
 
-Используй `Protocols/execution/execution_mode.md` для создания/ведения концепций. Для issue внутри концепции используй `Protocols/issue/issue_lifecycle.md`; для export — `Protocols/release/concept.md`.
+Используй `Protocols/execution/execution_mode.md` для создания и ведения концепций. Для issue внутри концепции используй `Protocols/issue/issue_lifecycle.md`; для export — `Protocols/release/concept.md`.
 
 ## Recovery
 
@@ -33,15 +33,13 @@
 
 ## Persistence
 
-Перед ответом сохраняй changed concept files, manifest, structure, concept state and `State/execution_index_state.json`, если они изменились. Пиши `persisted=yes` только после фактической записи через GitHub Connector.
+Перед ответом сохраняй changed concept files, manifest, structure, concept state и `State/execution_index_state.json`, если они изменились. Пиши `persisted=yes` только после фактической записи через GitHub Connector.
 
 ## Границы
 
 Не меняй `Protocols/`, `State/state_schema.md`, `Instructions/`, `Repository/` как основную задачу Execution Mode. Для системных изменений переходи в `Service Mode` или создавай service issue.
 
 ## Health marker
-
-В конце startup или state-changing ответа дай marker:
 
 ```text
 mode=execution; focus=<focus>; phase=<phase>; persisted=<yes|no>; next=<next>; context_confidence=<high|medium|low>
