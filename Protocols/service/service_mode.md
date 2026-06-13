@@ -18,7 +18,7 @@ Primary protocol для обслуживания самого `Concept Builder`:
 
 - менять `README.md`, `Repository/file_index.jsonl`, `Repository/link_graph.md`, `Checks/final.md`;
 - менять `Instructions/`, `State/`, `Protocols/`, `Templates/`;
-- вести service-level issue и registry;
+- вести service-level issue and registry;
 - выполнять link/orphan/language validation;
 - исправлять system-file defects после mutation gate.
 
@@ -41,24 +41,36 @@ affected_files_listed: true
 persistence_plan_known: true
 ```
 
-Narrow exception допустим для emergency repair README/state/hash/link, но exception должен быть записан в state/output evidence и закрыт последующей validation.
+Narrow exception допустим для emergency repair README/state/hash/link/final evidence, но exception должен быть записан в state/output evidence and validated after write. Exception не отменяет проверки.
 
 ## Workflow
 
 1. Запустить [startup.md](../common/startup.md).
 2. Зарезервировать input по [input_registry.md](input_registry.md), если запрос не compact или должен продолжаться.
-3. Создать или обновить service issue через [issue_lifecycle.md](../issue/issue_lifecycle.md).
+3. Создать или обновить service issue through [issue_lifecycle.md](../issue/issue_lifecycle.md).
 4. Проверить mutation gate.
 5. Изменить production files.
-6. Обновить registry, repository index/map и relevant state.
+6. Обновить registry, repository index/map and relevant state.
 7. Выполнить link/orphan/language checks.
 8. Ответить пользователю только после GitHub persistence.
+
+## Compact repair exception
+
+Для компактной repair-задачи без отдельного issue folder допускается direct patch, если:
+
+```yaml
+user_request_is_current_turn: true
+affected_files_are_known: true
+no_new_product_feature_added: true
+state_update_or_final_evidence_records_exception: true
+validation_run_after_write: true
+```
 
 ## Closure gate
 
 ```yaml
 production_files_written: true
-file_index_updated: true
+file_index_updated_or_unchanged_with_reason: true
 link_graph_updated: true
 state_updated: true
 registry_consistent: true
