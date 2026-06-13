@@ -1,19 +1,33 @@
 # Issue template
 
-[Назад к README](../../README.md)
+[Назад к issue lifecycle](../../Protocols/issue/issue_lifecycle.md)
 
 ## Назначение
 
-Шаблон набора файлов для complex issue.
+Summary-шаблон структуры complex issue. Primary workflow описан в [issue_lifecycle.md](../../Protocols/issue/issue_lifecycle.md); этот файл не заменяет protocol.
+
+## Связанные файлы
+
+- [Issue lifecycle](../../Protocols/issue/issue_lifecycle.md)
+- [Complex linked issue](../../Protocols/issue/complex_linked.md)
 
 ## Состав
 
-- state.json
-- reason.md
-- requirements.md
-- plan.md
-- solution.md
-- contract.md
-- output_report.md
+```text
+state.json
+reason.md
+qa.md                  # только если нужны вопросы
+requirements.md
+plan.md
+solution.md
+contract.md
+output/report.md
+output/attachments/    # только если есть вложения
+```
 
-Рабочий issue создаётся не здесь, а в `Issues/active/<issue_id>/` или внутри concept issue folder.
+## Правила
+
+- `output/report.md` — единственное допустимое имя отчёта.
+- Empty decorative files не создаются.
+- Reason mirror проверяется byte-for-byte, если issue создаётся из user-facing reason.
+- Closure требует registry/state persistence и link/orphan check.

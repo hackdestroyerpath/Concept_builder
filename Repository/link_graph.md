@@ -4,57 +4,52 @@
 
 ## Назначение
 
-Карта достижимости production-файлов `Concept Builder`.
-`Repository/file_index.jsonl` остаётся машинным источником истины, а этот файл даёт читаемый маршрут.
+Карта достижимости active production-файлов и локальный Markdown navigation contract. Машинный список путей хранится в [file_index.jsonl](file_index.jsonl).
 
-## Root
+## Связанные файлы
 
 - [README](../README.md)
-- [File index](file_index.jsonl)
+- [Repository file index](file_index.jsonl)
 - [Final check](../Checks/final.md)
 
-## State
+## Root route
 
-- [Service state](../State/service_state.json)
-- [Execution index state](../State/execution_index_state.json)
-- [State schema](../State/state_schema.md)
+- [README](../README.md)
+  - [Repository file index](file_index.jsonl)
+  - [Final check](../Checks/final.md)
+  - [State schema](../State/state_schema.md)
+  - [Startup protocol](../Protocols/common/startup.md)
 
-## Project instructions
+## Work routes
 
-- [Execution project instruction](../Instructions/concept_builder_project_instruction.md)
-- [Service project instruction](../Instructions/concept_builder_service_mode_project_instruction.md)
+- State: [service](../State/service_state.json), [execution](../State/execution_index_state.json), [schema](../State/state_schema.md)
+- Instructions: [execution](../Instructions/concept_builder_project_instruction.md), [service](../Instructions/concept_builder_service_mode_project_instruction.md)
+- Common protocols: [startup](../Protocols/common/startup.md), [context](../Protocols/common/context_loading.md), [focus](../Protocols/common/focus_packet.md), [state update](../Protocols/common/state_update.md)
+- Service: [mode](../Protocols/service/service_mode.md), [input registry](../Protocols/service/input_registry.md), [issue registry](../Issues/registry.jsonl), [inbox](../Inbox/README.md)
+- Execution: [mode](../Protocols/execution/execution_mode.md), [concepts](../Concepts/root.md), [release](../Protocols/release/concept.md)
+- Issues: [lifecycle](../Protocols/issue/issue_lifecycle.md), [complex linked](../Protocols/issue/complex_linked.md), [template](../Templates/issue/README.md)
+- Concepts: [template](../Templates/concept/README.md)
 
-## Protocols
+## Markdown navigation contract
 
-- [Startup](../Protocols/common/startup.md)
-- [Context loading](../Protocols/common/context_loading.md)
-- [Focus packet](../Protocols/common/focus_packet.md)
-- [State update](../Protocols/common/state_update.md)
-- [Service Mode](../Protocols/service/service_mode.md)
-- [Input registry](../Protocols/service/input_registry.md)
-- [Execution Mode](../Protocols/execution/execution_mode.md)
-- [Issue lifecycle](../Protocols/issue/issue_lifecycle.md)
-- [Complex linked issue](../Protocols/issue/complex_linked.md)
-- [Concept release](../Protocols/release/concept.md)
+Каждый active Markdown-файл, кроме root README, должен иметь один H1, ссылку назад к parent, раздел `Назначение`, раздел `Связанные файлы`, относительные links only, и primary-source note или ссылку на primary source. README является root exception и обязан содержать wiki-map, routing режимов, integrity rules и next actions.
 
-## Work areas
+## Link validation procedure
 
-- [Inbox](../Inbox/README.md)
-- [Concepts](../Concepts/root.md)
-- [Service issue registry](../Issues/registry.jsonl)
+1. Сверить indexed paths из `Repository/file_index.jsonl` с GitHub tree.
+2. Открыть каждый indexed path через GitHub Connector.
+3. Проверить relative Markdown links.
+4. Проверить root reachability и backlink map.
+5. Проверить отсутствие лишних рабочих материалов вне production scope.
+6. Записать результат в [Checks/final.md](../Checks/final.md).
 
-## Templates
-
-- [Issue template](../Templates/issue/README.md)
-- [Concept template](../Templates/concept/README.md)
-
-## Проверка
+## Validation evidence
 
 ```yaml
-phase: repair_p0_p1
-status: pass
-active_files_indexed: true
-active_links_present: true
-deprecated_files_in_production: []
-manual_github_action_required: false
+baseline_commit_sha: "2057c43b79d03c409079f17b136849615bf0ca51"
+recursive_tree_checked: true
+indexed_active_files: 24
+broken_relative_links: []
+orphan_indexed_files: []
+final_evidence_file: Checks/final.md
 ```

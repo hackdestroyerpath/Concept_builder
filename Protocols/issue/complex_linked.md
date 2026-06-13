@@ -1,37 +1,56 @@
 # Complex and linked issue
 
-[Назад к README](../../README.md)
+[Назад к issue lifecycle](issue_lifecycle.md)
 
 ## Назначение
 
-Протокол описывает complex issue, child issue, linked issue, зависимости, блокировки и propagation результата.
+Primary protocol для complex issue, child issue, linked issue, dependency safeguards, readiness и propagation.
 
-## Complex issue
+## Связанные файлы
 
-Complex issue нужен, если задача распадается на самостоятельные work units, требует child issue или не может честно закрыться одним contract.
-Parent issue хранит decomposition rationale, child candidates, parent acceptance logic и integration check.
+- [Issue lifecycle](issue_lifecycle.md)
+- [Input registry](../service/input_registry.md)
+- [Execution Mode](../execution/execution_mode.md)
 
-## Child approval
+## Complex criteria
 
-Child issue сначала создаётся как proposed. После команды пользователя `утверждаю children` proposed children становятся approved.
-Отклонённые children получают tombstone или registry note.
+Complex issue нужен, если задача имеет independent work units, child approval, разные scopes, dependency chain или отдельный output contract.
 
-## Relationships
+## Child workflow
 
-Связи хранятся в registry и local issue state:
+1. Parent фиксирует `decomposition_reason`, `child_candidates`, `parent_acceptance_logic`.
+2. Child сначала `proposed`, не `open`.
+3. User approves all children or selected children.
+4. Approved children become `open`; rejected children get tombstone row with reason.
+5. Parent closes only when approved children are closed or waived.
 
-- `parent_id`
-- `child_ids`
-- `blocks`
-- `depends_on`
-- `uses_output_of`
-- `related_to`
+## Relationship schema
 
-## Readiness
+```json
+{
+  "parent_id":null,
+  "child_ids":[],
+  "blocks":[],
+  "depends_on":[],
+  "uses_output_of":[],
+  "related_to":[],
+  "relationship_status":"proposed|approved|satisfied|blocked|tombstoned",
+  "propagation_required":true
+}
+```
 
-Issue можно выполнять только если dependencies закрыты, required outputs существуют, parent не блокирует выполнение и нет unresolved blockers.
+## Safeguards
 
-## Propagation
+- Maximum depth: 3 unless user approves deeper split.
+- Maximum proposed children per pass: 7.
+- Dependency graph must be acyclic.
+- Child cannot change parent files unless contract allows it.
+- Parent cannot close by summary-only output.
 
-После закрытия issue агент обновляет parent, downstream issue, dependency status, output links и registry.
-Если propagation не выполнена, issue не считается полностью закрытым.
+## Readiness and propagation
+
+Issue can execute only if dependencies are closed, required outputs exist, parent allows execution and no blocker remains. After closure, agent updates parent, downstream status, output links, registry rows and state files. If propagation fails, closure is blocked.
+
+## Tombstone/link repair
+
+Tombstone keeps identity and reason. References in parent, registry, state, output report and link graph are repaired where applicable.

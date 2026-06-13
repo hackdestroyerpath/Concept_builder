@@ -2,77 +2,83 @@
 
 [Назад к README](../../README.md)
 
-Связанные файлы:
-- [Startup protocol](../common/startup.md)
-- [Focus packet](../common/focus_packet.md)
-- [State update](../common/state_update.md)
-- [Execution index state](../../State/execution_index_state.json)
-- [Concepts root](../../Concepts/root.md)
-- [Repository file index](../../Repository/file_index.jsonl)
-- [Repository link graph](../../Repository/link_graph.md)
-
 ## Назначение
 
-`Execution Mode` ведёт пользовательские концепции в `Concepts/`.
-Этот режим работает с конкретной concept folder и не обслуживает системные протоколы как основную задачу.
+Primary protocol для создания, продолжения и экспорта пользовательских концепций в `Concepts/`. System files обслуживаются через `Service Mode`, не через этот режим.
 
-## Границы режима
+## Связанные файлы
 
-Разрешено:
+- [Startup protocol](../common/startup.md)
+- [Focus packet](../common/focus_packet.md)
+- [Issue lifecycle](../issue/issue_lifecycle.md)
+- [Concept release](../release/concept.md)
+- [Concept template](../../Templates/concept/README.md)
+- [Concepts root](../../Concepts/root.md)
 
-- создавать новую concept folder после явного запроса пользователя;
-- вести Markdown-файлы конкретной концепции;
-- обновлять concept manifest, structure и state;
-- создавать concept-level issue;
-- готовить export концепции;
-- обновлять `State/execution_index_state.json`, если меняется список или active concept.
+## Startup cases
 
-Запрещено:
+- `no_active`: показать actions `создать концепцию`, `открыть список концепций`, `восстановить focus`.
+- `active_known`: загрузить concept `state.json`, `README.md`, `manifest.jsonl`, `structure.md`, локальный registry и active protocols.
+- `active_unknown`: выполнить focus-loss recovery, не создавать новую концепцию автоматически.
 
-- менять `Protocols/`, `State/state_schema.md`, project instructions и repository map как основную работу;
-- создавать demo concepts без реального пользовательского запроса;
-- читать все concepts сразу без причины;
-- утверждать, что state или export сохранены, если GitHub-запись не прошла.
+## Concept creation model
 
-## Создание концепции
+Новая концепция создаётся только по реальному запросу пользователя. Сначала создаётся skeleton, затем concept becomes ready only after required content, manifest, structure, state and link network are consistent.
 
-Новая концепция создаётся только после явного запроса пользователя.
-Путь концепции: `Concepts/<concept_slug>/`.
-
-Минимальный состав:
+Минимальный file set:
 
 ```text
 README.md
+about.md
+operating_model.md
+requirements.md
+process.md
+state.json
 manifest.jsonl
 structure.md
-state.json
 Issues/registry.jsonl
+pages/
 ```
+
+`state.json` обязателен. Его отсутствие блокирует readiness и export.
+
+## Concept state fields
+
+Concept state follows [State schema](../../State/state_schema.md) and must include `concept_slug`, `active_issue_id`, `readiness_status`, `export_status`, `last_export_report`, `manifest_path`, `structure_path`, `local_issue_registry`, `focus_pointers`.
+
+## Focus hierarchy
+
+Focus order: execution index → active concept → concept section/page → concept issue → output. Agent may drop lower focus only after summary propagation to parent. Parent anchor must be written in focus packet.
 
 ## Concept issue workflow
 
-1. Принять пользовательский запрос внутри active concept.
-2. Проверить, нужен ли concept-level issue.
-3. Для complex issue создать `Concepts/<concept_slug>/Issues/active/<issue_id>/`.
-4. Зафиксировать reason, state, requirements, plan, solution, contract и output, если применимо.
-5. Обновить concept issue registry.
-6. Изменить concept files.
-7. Обновить manifest, structure, concept state и execution index state.
-8. Проверить persistence перед ответом.
+Local registry row in `Concepts/<slug>/Issues/registry.jsonl` uses same lifecycle fields plus:
 
-## Export
-
-Export разрешён только из согласованного состояния концепции.
-Перед export нужно проверить:
-
-```yaml
-concept_state_current: true
-manifest_current: true
-structure_current: true
-open_blocking_issues: []
-export_target_known: true
+```json
+{
+  "concept_slug":"<slug>",
+  "allowed_scope":"concept_only",
+  "manifest_update_required":true,
+  "structure_update_required":true,
+  "concept_state_update_required":true,
+  "service_escalation_required":false
+}
 ```
 
-## Ответ пользователю
+Concept issue may mutate only files inside its concept folder, except execution index state update. If it discovers system defect, create service issue instead of editing system files.
 
-Ответ должен содержать изменённые файлы, commit sha, текущий state flag и следующий допустимый шаг.
+## Manifest/structure gate
+
+Any page creation, deletion, rename or link change inside concept requires:
+
+```yaml
+manifest_updated: true
+structure_updated: true
+local_links_checked: true
+backlinks_checked: true
+concept_state_updated: true
+```
+
+## Export route
+
+Export uses [Concept release](../release/concept.md). Draft export can include open nonblocking issues with snapshot. Final export is blocked by open blocking issues, missing state, broken links, orphan files, manifest/structure mismatch or failed language gate.
