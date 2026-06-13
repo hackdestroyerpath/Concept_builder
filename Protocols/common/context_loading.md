@@ -4,53 +4,27 @@
 
 ## Назначение
 
-Протокол задаёт минимальную загрузку контекста для `Service Mode` и `Execution Mode`.
-Цель — открыть только нужные файлы, восстановить focus и не превращать каждый старт в раскопки всего репозитория.
+Протокол минимальной загрузки контекста для `Service Mode`, `Execution Mode`, concept и issue focus. Primary schema находится в [focus_packet.md](focus_packet.md).
 
-## Минимальный пакет
+## Связанные файлы
 
-При старте агент открывает:
+- [Focus packet](focus_packet.md)
+- [Startup protocol](startup.md)
+- [Repository file index](../../Repository/file_index.jsonl)
+- [Repository link graph](../../Repository/link_graph.md)
+
+## Минимальный startup
 
 1. `README.md`.
 2. `Repository/file_index.jsonl`.
 3. `Repository/link_graph.md`.
-4. Relevant state: `State/service_state.json` или `State/execution_index_state.json`.
-5. Protocol-файлы из `active_protocols` relevant state.
-6. Файлы текущего focus, если focus задан.
+4. Relevant top-level state.
+5. Protocol paths из `active_protocols`.
+6. Focus files из `allowed_context`.
 
-## Focus packet
+Весь repository tree, все concepts, все issues и вложения не читаются без конкретного `reload_reason`.
 
-Focus packet должен содержать:
-
-```yaml
-mode: service|execution
-state_file: path
-current_focus: string|null
-focus_stack: []
-active_protocols: []
-allowed_context: []
-blocked_context: []
-next_expected_step: string
-context_confidence: high|medium|low
-```
-
-## Запрещённый контекст по умолчанию
-
-Не загружать без явной причины:
-
-- implementation archive;
-- checkpoint archives;
-- temporary notes;
-- все concepts сразу;
-- все active issue сразу;
-- attachments, если они не являются source текущего issue.
-
-## Эскалация контекста
-
-Расширять контекст можно только если текущего focus packet недостаточно.
-Перед расширением агент фиксирует причину: missing source, broken link, conflict in state, low confidence или user request.
-
-## Gate перед изменением файла
+## Lean gate
 
 ```yaml
 file_has_clear_function: true
@@ -59,6 +33,15 @@ parent_known: true
 reachable_from_entry: true
 index_or_manifest_update_known: true
 duplicate_risk_checked: true
+language_gate_known: true
 ```
 
-Если gate не проходит, файл не создаётся и не изменяется.
+Если gate не проходит, production-файл не создаётся. Для `Concepts/<slug>/` обновляются local manifest, structure, concept state и link network.
+
+## Context escalation
+
+Расширение разрешено только по причине: `missing_source`, `broken_link`, `state_conflict`, `low_confidence`, `user_request`, `export_precheck`, `issue_resume`. Причина записывается в focus packet.
+
+## Focus recovery
+
+Если state загружен, но нельзя определить `current_entity_id`, parent anchor, active state files или next step, работа блокируется до recovery по [focus_packet.md](focus_packet.md).
