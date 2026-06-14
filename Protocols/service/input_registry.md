@@ -94,7 +94,7 @@ proposed -> open -> waiting_user -> approved -> executing -> validating -> close
 proposed -> tombstoned
 open|waiting_user|approved|executing|validating -> blocked
 blocked -> open|tombstoned
-closed -> open only through separate repair issue
+closed -> open: только через отдельную ремонтную issue
 ```
 
 Прямые переходы `proposed -> executing`, `closed -> executing`, `tombstoned -> open` запрещены без отдельной ремонтной issue.
@@ -116,15 +116,15 @@ closed -> open only through separate repair issue
 
 ## Зеркало причины
 
-Полный `Reason` в ответе пользователю и `reason.md` должны совпадать побуквенно. Проверка: byte-for-byte comparison UTF-8 после нормализации переносов строк к LF. При несовпадении ответ не отправляется, issue получает `blocked: reason_mirror_mismatch`, а пользователь видит действие ремонта.
+Полный `Reason` в ответе пользователю и `reason.md` должны совпадать побуквенно. Проверка: сравнение UTF-8 byte-for-byte после нормализации переносов строк к LF. При несовпадении ответ не отправляется, issue получает `blocked: reason_mirror_mismatch`, а пользователь видит действие ремонта.
 
 Поля ответа для предложенной issue:
 
 ```yaml
-Reason source: chat|entry.md|file
-Reason mirror: exact|blocked
-Registry persistence: written|not_written
-Next action: approve|discuss|reject|edit
+Причина — источник: chat|entry.md|file
+Причина — зеркало: exact|blocked
+Сохранение registry: written|not_written
+Следующее действие: approve|discuss|reject|edit
 ```
 
 ## Cleanup и tombstone
@@ -142,7 +142,7 @@ Tombstone сохраняет identity/history, то есть идентично�
 }
 ```
 
-Cleanup разрешён только после проверки обратных ссылок, ссылок registry, ссылок state и связей parent/child. Удаление без tombstone trace запрещено для issue или input, которые уже упоминались в registry или output/report.
+Cleanup разрешён только после проверки обратных ссылок, ссылок registry, ссылок state и связей parent/child. Удаление без tombstone trace, то есть без следа о замене или закрытии, запрещено для issue или input, которые уже упоминались в registry или output/report.
 
 ## Шаблоны ответа
 
@@ -150,9 +150,9 @@ Cleanup разрешён только после проверки обратны
 
 ```text
 Issue создан: <issue_id>
-Reason source: <source>
-Reason mirror: exact
-Registry persistence: written
+Причина — источник: <source>
+Причина — зеркало: exact
+Сохранение registry: written
 Доступные действия: утвердить, обсудить, изменить, отклонить, отложить.
 ```
 
