@@ -1,30 +1,30 @@
-# Context loading
+# Загрузка контекста
 
 [Назад к README](../../README.md)
 
 ## Назначение
 
-Протокол минимальной загрузки контекста для `Service Mode`, `Execution Mode`, concept и issue focus. Primary schema находится в [focus_packet.md](focus_packet.md).
+Протокол минимальной загрузки контекста для `Service Mode`, `Execution Mode`, concept и issue. Основная схема находится в [focus_packet.md](focus_packet.md).
 
 ## Связанные файлы
 
-- [Focus packet](focus_packet.md)
-- [Startup protocol](startup.md)
-- [Repository file index](../../Repository/file_index.jsonl)
-- [Repository link graph](../../Repository/link_graph.md)
+- [Пакет фокуса](focus_packet.md)
+- [Протокол запуска](startup.md)
+- [Индекс файлов](../../Repository/file_index.jsonl)
+- [Карта связей](../../Repository/link_graph.md)
 
-## Минимальный startup
+## Минимальный запуск
 
 1. `README.md`.
 2. `Repository/file_index.jsonl`.
 3. `Repository/link_graph.md`.
-4. Relevant top-level state.
-5. Protocol paths из `active_protocols`.
-6. Focus files из `allowed_context`.
+4. Нужное верхнее состояние.
+5. Пути протоколов из `active_protocols`.
+6. Файлы фокуса из `allowed_context`.
 
-Весь repository tree, все concepts, все issues и вложения не читаются без конкретного `reload_reason`.
+Всё дерево репозитория, все concepts, все issues и вложения не читаются без конкретной причины в `reload_reason`.
 
-## Lean gate
+## Экономная проверка
 
 ```yaml
 file_has_clear_function: true
@@ -36,12 +36,12 @@ duplicate_risk_checked: true
 language_gate_known: true
 ```
 
-Если gate не проходит, production-файл не создаётся. Для `Concepts/<slug>/` обновляются local manifest, structure, concept state и link network.
+Если проверка не проходит, рабочий файл не создаётся. Для `Concepts/<slug>/` обновляются local manifest, structure, состояние концепции и сеть ссылок.
 
-## Context escalation
+## Расширение контекста
 
-Расширение разрешено только по причине: `missing_source`, `broken_link`, `state_conflict`, `low_confidence`, `user_request`, `export_precheck`, `issue_resume`. Причина записывается в focus packet.
+Расширение разрешено только по причине: `missing_source`, `broken_link`, `state_conflict`, `low_confidence`, `user_request`, `export_precheck`, `issue_resume`. Причина записывается в пакет фокуса.
 
-## Focus recovery
+## Восстановление фокуса
 
-Если state загружен, но нельзя определить `current_entity_id`, parent anchor, active state files или next step, работа блокируется до recovery по [focus_packet.md](focus_packet.md).
+Если состояние загружено, но нельзя определить `current_entity_id`, родительский якорь, активные state-файлы или следующий шаг, работа блокируется до восстановления по [focus_packet.md](focus_packet.md).
