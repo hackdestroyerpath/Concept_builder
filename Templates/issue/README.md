@@ -1,15 +1,15 @@
-# Issue template
+# Шаблон issue
 
-[Назад к issue lifecycle](../../Protocols/issue/issue_lifecycle.md)
+[Назад к жизненному циклу issue](../../Protocols/issue/issue_lifecycle.md)
 
 ## Назначение
 
-Summary-шаблон структуры service или concept issue. Primary workflow описан в [issue_lifecycle.md](../../Protocols/issue/issue_lifecycle.md); этот файл не заменяет protocol.
+Краткий шаблон структуры служебной или концептной issue. Основной рабочий процесс описан в [issue_lifecycle.md](../../Protocols/issue/issue_lifecycle.md); этот файл не заменяет протокол.
 
 ## Связанные файлы
 
-- [Issue lifecycle](../../Protocols/issue/issue_lifecycle.md)
-- [Complex linked issue](../../Protocols/issue/complex_linked.md)
+- [Жизненный цикл issue](../../Protocols/issue/issue_lifecycle.md)
+- [Сложные и связанные issue](../../Protocols/issue/complex_linked.md)
 
 ## Состав
 
@@ -28,7 +28,7 @@ output/attachments/    # только если есть вложения
 ## Правила
 
 - `output/report.md` — единственное допустимое имя отчёта.
-- Empty decorative files не создаются.
-- Reason mirror проверяется byte-for-byte, если issue создаётся из user-facing reason.
-- Closure требует registry/state persistence, output/report, parent-child propagation и link/orphan check.
+- Пустые декоративные файлы не создаются.
+- Reason mirror проверяется byte-for-byte, если issue создаётся из причины, показанной пользователю.
+- Закрытие требует сохранённых registry/state, output/report, распространения parent-child и проверки ссылок.
 - Concept issue дополнительно обновляет local manifest, structure, concept state и local registry.
