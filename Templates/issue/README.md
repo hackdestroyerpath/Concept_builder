@@ -29,6 +29,6 @@ output/attachments/    # только если есть вложения
 
 - `output/report.md` — единственное допустимое имя отчёта.
 - Пустые декоративные файлы не создаются.
-- Reason mirror проверяется byte-for-byte, если issue создаётся из причины, показанной пользователю.
+- Reason mirror — проверка точного совпадения причины с `reason.md`.
 - Закрытие требует сохранённых registry/state, output/report, распространения parent-child и проверки ссылок.
 - Concept issue дополнительно обновляет local manifest, structure, concept state и local registry.
