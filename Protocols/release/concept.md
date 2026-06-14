@@ -4,7 +4,7 @@
 
 ## Назначение
 
-Основной протокол для draft/final export, закрытия концепции, проверки link network и export report.
+Основной протокол для draft/final export, закрытия концепции, проверки link network и export report. Эти токены являются названиями операций выпуска и отчёта.
 
 ## Связанные файлы
 
@@ -66,7 +66,7 @@ validation_summary: {}
 
 ## Содержимое package
 
-Package включает только concept-local production files: README, pages, manifest, structure, state, relevant outputs и allowed attachments. Он исключает служебные рабочие файлы, implementation notes, unrelated concepts, handoff archives и task-state archives.
+Package, то есть пакет выпуска, включает только concept-local production files: README, pages, manifest, structure, state, relevant outputs и allowed attachments. Он исключает служебные рабочие файлы, implementation notes, unrelated concepts, handoff archives и task-state archives. Перечисленные английские выражения являются именами категорий файлов и артефактов.
 
 ## Список закрытия concept
 
