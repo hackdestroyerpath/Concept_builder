@@ -4,7 +4,7 @@
 
 ## Назначение
 
-Primary protocol для complex issue, child issue, linked issue, dependency safeguards, readiness and propagation.
+Основной protocol для complex issue, child issue, linked issue, dependency safeguards, readiness и propagation.
 
 ## Связанные файлы
 
@@ -14,11 +14,11 @@ Primary protocol для complex issue, child issue, linked issue, dependency saf
 
 ## Complex criteria
 
-Complex issue нужен, если задача имеет independent work units, child approval, разные scopes, dependency chain, separate output contract, partial approval risk or recursion risk.
+Complex issue нужен, если задача имеет independent work units, child approval, разные scopes, dependency chain, separate output contract, partial approval risk или recursion risk.
 
 ## Parent issue fields
 
-Parent state adds:
+Parent state добавляет:
 
 ```json
 {
@@ -33,11 +33,11 @@ Parent state adds:
 
 ## Child approval workflow
 
-1. Parent proposes child candidates as `proposed` rows, not `open` rows.
-2. User may approve all, approve selected, reject selected, discuss or edit child candidates.
-3. Approved children become `open` and receive state/reason/requirements skeleton.
-4. Rejected children get tombstone row with reason.
-5. Parent can execute only parts not blocked by children; parent closes only when approved children are closed, waived or explicitly superseded.
+1. Parent предлагает child candidates как `proposed` rows, не как `open` rows.
+2. User может approve all, approve selected, reject selected, discuss или edit child candidates.
+3. Approved children переходят в `open` и получают state/reason/requirements skeleton.
+4. Rejected children получают tombstone row с reason.
+5. Parent может execute только части, не заблокированные children; parent closes только когда approved children closed, waived or explicitly superseded.
 
 ## Relationship schema
 
@@ -57,7 +57,7 @@ Parent state adds:
 
 ## Linked issue readiness
 
-Issue can execute only if:
+Issue может execute только если:
 
 ```yaml
 dependencies_closed_or_waived: true
@@ -68,7 +68,7 @@ blocking_children: []
 contract_allows_cross_file_change: true
 ```
 
-If linked issue uses output of another issue, output/report path and commit SHA must be recorded before execution.
+Если linked issue uses output of another issue, output/report path и commit SHA должны быть записаны before execution. То есть dependent issue не стартует, пока required output не сохранён и не проверен.
 
 ## Safeguards
 
@@ -82,16 +82,16 @@ If linked issue uses output of another issue, output/report path and commit SHA 
 
 ## Propagation after closure
 
-After child/linked closure, agent updates:
+После child/linked closure agent обновляет:
 
 1. child output/report;
 2. child state;
-3. parent summary and state;
-4. downstream issue state if `blocks` or `uses_output_of` changed;
+3. parent summary и state;
+4. downstream issue state, если `blocks` или `uses_output_of` изменились;
 5. registry rows;
-6. link graph/manifest if files changed.
+6. link graph/manifest, если files changed.
 
-If propagation fails, closure is blocked with `blocked: propagation_failed`.
+Если propagation fails, closure блокируется со status `blocked: propagation_failed`.
 
 ## Dry-run example
 
