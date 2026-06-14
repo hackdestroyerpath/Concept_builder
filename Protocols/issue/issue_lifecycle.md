@@ -78,11 +78,11 @@ user_approval: required|received|waived_with_reason
 
 | Файл | Минимальное содержание | Условие допуска |
 |---|---|---|
-| `plan.md` | steps, affected files, validation plan, rollback/repair note | утверждён до решения |
-| `solution.md` | selected approach, alternatives rejected, exact file operations | утверждён до договора |
-| `contract.md` | allowed files, blocked files, persistence order, success/failure evidence | утверждён до выполнения; английские элементы здесь являются именами полей договора |
+| `plan.md` | шаги; затронутые файлы; план проверки; заметка об откате или ремонте | утверждён до решения |
+| `solution.md` | выбранный подход; отклонённые альтернативы; точные операции с файлами | утверждён до договора |
+| `contract.md` | разрешённые файлы; заблокированные файлы; порядок сохранения; evidence успеха или ошибки | утверждён до выполнения |
 
-Выполнение без known affected files и persistence plan запрещено.
+Выполнение без known affected files и persistence plan запрещено; эти токены означают заранее известные затронутые файлы и план сохранения.
 
 ## Проверка выполнения
 
@@ -126,10 +126,10 @@ next_expected_step: string
 ## Переходы закрытия
 
 ```text
-validating -> closed       only if output verified and propagation done
-validating -> blocked      if persistence/check failed
-closed -> open             only via separate repair issue
-open|approved -> tombstoned if user rejects or supersedes before execution
+validating -> closed: только если output проверен и распространение завершено
+validating -> blocked: если сохранение или проверка не прошли
+closed -> open: только через отдельную ремонтную issue
+open|approved -> tombstoned: если пользователь отклоняет или заменяет задачу до выполнения
 ```
 
 Закрытие требует строки registry, state задачи, output/report, распространения к parent/child, проверки ссылок и фактического сохранения.
@@ -140,4 +140,4 @@ Issue переквалифицируется, когда простая зада
 
 ## Вариант concept issue
 
-Concept issue использует те же проверки, но allowed mutations остаются внутри `Concepts/<slug>/`, кроме `State/execution_index_state.json`, если меняется summary активной концепции. Manifest, structure, local registry и обновления состояния concept являются жёсткими условиями для создания, удаления или переименования страниц.
+Concept issue использует те же проверки, но разрешённые изменения (`allowed mutations`) остаются внутри `Concepts/<slug>/`, кроме `State/execution_index_state.json`, если меняется сводка (`summary`) активной концепции. Manifest, structure, local registry и обновления состояния concept являются жёсткими условиями для создания, удаления или переименования страниц.
