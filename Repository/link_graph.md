@@ -100,10 +100,12 @@ Root README является исключением: он вместо backlink 
 ## Validation evidence snapshot
 
 ```yaml
-baseline_commit_before_this_patch: "a53633b8f64fea72ae76738a090ac10dd757f6a5"
-branch_checked: "phase2-evidence-finalization"
+baseline_commit_before_this_hardening: "67baf2d9cd6fd864317a3fd7d689909f5b3a8cdb"
+validation_branch: "phase2-final-evidence-hardening-20260613"
+target_branch_after_merge: "main"
 indexed_active_files: 24
-new_production_files_added_by_this_patch: []
+new_production_files_added_by_this_hardening: []
+production_files_deleted_by_this_hardening: []
 dev_only_files_expected_in_production: []
 recursive_tree_validation_method:
   - file_index_jsonl_parse
