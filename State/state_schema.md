@@ -58,11 +58,11 @@ Service state используется при изменении системн�
 
 Каждая реальная концепция обязана иметь `Concepts/<concept_slug>/state.json`. Concept state хранит `concept_slug`, `active_issue_id`, `readiness_status`, `export_status`, `last_export_report`, `last_exported_at`, `last_export_package`, `manifest_path`, `structure_path`, `local_issue_registry`, `focus_pointers` и `open_issues_snapshot`.
 
-Skeleton concept не считается ready, пока required pages, state, manifest, structure, local registry и link network не синхронизированы.
+Skeleton concept не считается ready, пока required pages, state, manifest, structure, local registry и link network не синхронизированы; эти токены обозначают обязательные страницы, состояние, реестр и сеть ссылок.
 
 ## Issue state
 
-Issue state используется в `Issues/active/<issue_id>/state.json` или `Concepts/<slug>/Issues/active/<issue_id>/state.json`. Он хранит id задачи, scope, type, registry path, source input, status, parent/child links, dependencies, requirements status, plan status, solution status, contract status, output status, affected files, allowed files и blocked files.
+Issue state используется в `Issues/active/<issue_id>/state.json` или `Concepts/<slug>/Issues/active/<issue_id>/state.json`. Он хранит id задачи, scope, type, registry path, source input, status, parent/child links, dependencies, статусы requirements/plan/solution/contract/output, affected files, allowed files и blocked files.
 
 Прямые переходы к execution запрещены без approved requirements, plan, solution и contract, кроме atomic repair exception с записанными reason и evidence.
 
@@ -74,4 +74,4 @@ Issue state используется в `Issues/active/<issue_id>/state.json` и
 
 ## Правила восстановления
 
-Если `state_hash` invalid, `current_entity_id` нужен, но отсутствует, active state file не открывается, `state_revision_loaded` не совпадает или registry/manifest конфликтует со state, агент обязан остановить обычный workflow, собрать focus packet с `context_confidence=low`, открыть README, file index, link graph, relevant state и primary protocol, восстановить missing fields или поставить `pending_user_action`, затем сохранить relevant state перед продолжением.
+Если `state_hash` invalid, `current_entity_id` нужен, но отсутствует, active state file не открывается, `state_revision_loaded` не совпадает или registry/manifest конфликтует со state, агент обязан остановить обычный workflow, собрать focus packet с `context_confidence=low`, открыть README, file index, link graph, relevant state и primary protocol, восстановить missing fields или поставить `pending_user_action`, затем сохранить relevant state перед продолжением. Английские токены в этом предложении являются именами полей и протоколов.
