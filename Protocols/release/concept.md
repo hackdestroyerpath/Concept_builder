@@ -4,7 +4,7 @@
 
 ## Назначение
 
-Primary protocol для draft/final export, concept closure, link network validation and export report.
+Основной protocol для draft/final export, concept closure, link network validation и export report.
 
 ## Связанные файлы
 
@@ -16,8 +16,8 @@ Primary protocol для draft/final export, concept closure, link network valida
 ## Export commands
 
 - `export precheck` — dry-run без создания package.
-- `draft export` — разрешён при open nonblocking issues; snapshot lists them and limitations.
-- `final export` — разрешён только без open blocking issues and with all closure gates pass.
+- `draft export` — разрешён при open nonblocking issues; snapshot перечисляет их и limitations.
+- `final export` — разрешён только без open blocking issues и при успешных closure gates.
 
 ## Precondition report schema
 
@@ -41,9 +41,9 @@ failure_behavior: block|draft_with_notice|repair_required
 
 ## Draft/final policy
 
-Draft export may proceed with open nonblocking issues if report includes exact issue snapshot and limitations. Final export is blocked by any blocking issue, missing output, broken link, orphan file, manifest/structure mismatch, invalid state hash or failed language gate.
+Draft export может выполняться с open nonblocking issues, если report содержит exact issue snapshot и limitations. Final export блокируется при любом blocking issue, missing output, broken link, orphan file, manifest/structure mismatch, invalid state hash или failed language gate.
 
-User override cannot turn blocking issue into final export. It can only produce non-final draft export.
+User override не может превратить blocking issue в final export. Он может создать только non-final draft export.
 
 ## Package naming and metadata
 
@@ -66,7 +66,7 @@ validation_summary: {}
 
 ## Package contents
 
-Package includes only concept-local production files: README, pages, manifest, structure, state, relevant outputs and allowed attachments. It excludes service work files, implementation notes, unrelated concepts, handoff archives and task-state archives.
+Package includes только concept-local production files: README, pages, manifest, structure, state, relevant outputs и allowed attachments. Он excludes service work files, implementation notes, unrelated concepts, handoff archives и task-state archives.
 
 ## Concept closure checklist
 
@@ -84,11 +84,11 @@ concept_state_export_fields_updated: true
 
 ## Local-open validation
 
-Before export, unpack or simulate package root and open `README.md`. Every relative link from README and child pages must resolve within package. Broken local-open link blocks final export and downgrades draft export to `draft_with_notice`.
+Before export нужно unpack или simulate package root и открыть `README.md`. Every relative link from README and child pages должен resolve внутри package. Broken local-open link блокирует final export и переводит draft export в `draft_with_notice`.
 
 ## Export report
 
-Export report contains commit SHA, export type, package name, included files, excluded files, open issues snapshot, validation checks, residual risks, next step and concept state update result.
+Export report содержит commit SHA, export type, package name, included files, excluded files, open issues snapshot, validation checks, residual risks, next step и concept state update result.
 
 ## State update contract
 

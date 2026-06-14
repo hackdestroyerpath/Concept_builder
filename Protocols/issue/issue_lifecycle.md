@@ -1,10 +1,10 @@
-# Issue lifecycle
+# Жизненный цикл issue
 
 [Назад к README](../../README.md)
 
 ## Назначение
 
-Primary protocol для service-level and concept-level issue: resume, reason, QA, requirements, plan, solution, contract, execution, output/report and closure. Этот файл задаёт workflow; [complex_linked.md](complex_linked.md) расширяет его для child/dependency cases.
+Основной protocol для service-level и concept-level issue: resume, reason, QA, requirements, plan, solution, contract, execution, output/report и closure. Этот файл задаёт workflow; [complex_linked.md](complex_linked.md) расширяет его для child/dependency cases.
 
 ## Связанные файлы
 
@@ -19,37 +19,37 @@ Primary protocol для service-level and concept-level issue: resume, reason, Q
 ```text
 state.json
 reason.md
-qa.md                  # only if real questions are needed
+qa.md                  # только если нужны реальные вопросы
 requirements.md
 plan.md
 solution.md
 contract.md
 output/report.md
-output/attachments/    # only if attachments exist
+output/attachments/    # только если вложения действительно нужны
 ```
 
 `output/report.md` является единственным допустимым именем отчёта. `output_report.md` считается broken template path.
 
-## Registry and resume
+## Registry и resume
 
-Resume starts from registry row, not from memory. Agent opens:
+Resume начинается с registry row, а не с памяти. Agent открывает:
 
 1. relevant registry row;
 2. issue `state.json`;
 3. `reason.md`;
 4. current phase file;
-5. parent/child/linked rows if present;
+5. parent/child/linked rows, если они есть;
 6. focus packet.
 
-If registry row and state disagree, issue status becomes `blocked: registry_state_conflict` until repaired.
+Если registry row и state расходятся, issue получает status `blocked: registry_state_conflict` до repair.
 
-## Reason and mirror gate
+## Reason и mirror gate
 
-`reason.md` is canonical stored reason. If issue is created from user-facing proposal, response reason and `reason.md` must match byte-for-byte. If mismatch appears, execution and closure are blocked until mirror is repaired.
+`reason.md` — canonical stored reason (каноническая сохранённая причина). Если issue создан из user-facing proposal, response reason и `reason.md` должны совпадать byte-for-byte. При mismatch execution и closure блокируются до repair mirror.
 
 ## QA gate
 
-`qa.md` is created only if real questions are needed. If not needed, state and requirements record:
+`qa.md` создаётся только если нужны реальные вопросы. Если вопросы не нужны, state и requirements фиксируют:
 
 ```yaml
 qa_required: false
@@ -57,11 +57,11 @@ qa_decision_reason: "..."
 qa_file_created: false
 ```
 
-If QA is required, requirements cannot be approved until questions are answered or explicitly waived by user.
+Если QA required, requirements нельзя approve до ответа на вопросы или явного user waiver.
 
 ## Requirements gate
 
-`requirements.md` contains:
+`requirements.md` содержит:
 
 ```yaml
 status: missing|draft|approved
@@ -72,21 +72,21 @@ unknowns: []
 user_approval: required|received|waived_with_reason
 ```
 
-Plan may start only after `requirements_status=approved`, except for explicit discovery-only issue where output is questions, not production mutation.
+Plan может стартовать только после `requirements_status=approved`, кроме explicit discovery-only issue, где output — это вопросы, а не production mutation.
 
-## Plan, solution and contract gates
+## Plan, solution и contract gates
 
-| File | Minimum contents | Gate |
+| File | Минимальное содержание | Gate |
 |---|---|---|
 | `plan.md` | steps, affected files, validation plan, rollback/repair note | approved before solution |
 | `solution.md` | selected approach, alternatives rejected, exact file operations | approved before contract |
 | `contract.md` | allowed files, blocked files, persistence order, success/failure evidence | approved before execution |
 
-Execution without known affected files and persistence plan is forbidden.
+Выполнение без known affected files и persistence plan запрещено.
 
 ## Execution gate
 
-Before editing files:
+Перед editing files:
 
 ```yaml
 requirements_approved: true
@@ -99,11 +99,11 @@ persistence_order_known: true
 validation_plan_known: true
 ```
 
-Atomic repair exception must record reason, files, checks and state/output evidence.
+Atomic repair exception фиксирует reason, files, checks и state/output evidence. После завершения repair активная service exception должна быть сброшена, если она была использована.
 
 ## Output/report schema
 
-`output/report.md` contains:
+`output/report.md` содержит:
 
 ```yaml
 issue_id: string
@@ -121,7 +121,7 @@ closure_allowed: true|false
 next_expected_step: string
 ```
 
-Attachments go under `output/attachments/` only if needed and must be referenced from report.
+Attachments размещаются в `output/attachments/` только если нужны и должны быть указаны в report.
 
 ## Closure transitions
 
@@ -132,12 +132,12 @@ closed -> open             only via separate repair issue
 open|approved -> tombstoned if user rejects or supersedes before execution
 ```
 
-Closure requires registry row, issue state, output/report, parent-child propagation, link/orphan check and persistence verification.
+Closure требует registry row, issue state, output/report, parent-child propagation, link/orphan check и persistence verification.
 
 ## Requalification
 
-Issue requalifies when simple becomes complex, service becomes concept, child issue or dependency appears, requirements scope changes, output affects another issue, or affected files cross mode boundaries. Requalification updates registry row, state, focus packet, and if needed delegates to [complex_linked.md](complex_linked.md).
+Issue requalifies, когда simple становится complex, service становится concept, появляется child issue или dependency, меняется requirements scope, output влияет на другой issue или affected files переходят через mode boundaries. Requalification обновляет registry row, state, focus packet и при необходимости delegates to [complex_linked.md](complex_linked.md).
 
 ## Concept issue variation
 
-Concept issue follows the same gates but allowed mutations stay inside `Concepts/<slug>/`, except `State/execution_index_state.json` when active concept summary changes. Manifest, structure, local registry and concept state updates are hard gates for page creation/deletion/rename.
+Concept issue использует те же gates, но allowed mutations остаются внутри `Concepts/<slug>/`, кроме `State/execution_index_state.json`, если меняется summary активной концепции. Manifest, structure, local registry и concept state updates являются hard gates для page creation/deletion/rename.

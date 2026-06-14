@@ -30,5 +30,5 @@ output/attachments/    # только если есть вложения
 - `output/report.md` — единственное допустимое имя отчёта.
 - Empty decorative files не создаются.
 - Reason mirror проверяется byte-for-byte, если issue создаётся из user-facing reason.
-- Closure требует registry/state persistence, output/report, parent-child propagation and link/orphan check.
-- Concept issue дополнительно обновляет local manifest, structure, concept state and local registry.
+- Closure требует registry/state persistence, output/report, parent-child propagation и link/orphan check.
+- Concept issue дополнительно обновляет local manifest, structure, concept state и local registry.

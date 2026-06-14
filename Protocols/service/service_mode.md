@@ -4,7 +4,7 @@
 
 ## Назначение
 
-Primary protocol для обслуживания самого `Concept Builder`: protocols, state schema, project instructions, repository maps, service issue и validation. Этот режим не ведёт пользовательские концепции как основную работу.
+Основной protocol для обслуживания самого `Concept Builder`: protocols, state schema, project instructions, repository maps, service issue и validation. Этот режим не ведёт пользовательские концепции как основную работу.
 
 ## Связанные файлы
 
@@ -18,7 +18,7 @@ Primary protocol для обслуживания самого `Concept Builder`:
 
 - менять `README.md`, `Repository/file_index.jsonl`, `Repository/link_graph.md`, `Checks/final.md`;
 - менять `Instructions/`, `State/`, `Protocols/`, `Templates/`;
-- вести service-level issue and registry;
+- вести service-level issue и registry;
 - выполнять link/orphan/language validation;
 - исправлять system-file defects после mutation gate.
 
@@ -41,16 +41,16 @@ affected_files_listed: true
 persistence_plan_known: true
 ```
 
-Narrow exception допустим для emergency repair README/state/hash/link/final evidence, но exception должен быть записан в state/output evidence and validated after write. Exception не отменяет проверки.
+Narrow exception допустим для emergency repair README/state/hash/link/final evidence, но exception должен быть записан в state/output evidence и проверен после записи. Exception не отменяет проверки и после завершения repair должен быть сброшен в `State/service_state.json`.
 
 ## Workflow
 
 1. Запустить [startup.md](../common/startup.md).
 2. Зарезервировать input по [input_registry.md](input_registry.md), если запрос не compact или должен продолжаться.
-3. Создать или обновить service issue through [issue_lifecycle.md](../issue/issue_lifecycle.md).
+3. Создать или обновить service issue через [issue_lifecycle.md](../issue/issue_lifecycle.md).
 4. Проверить mutation gate.
 5. Изменить production files.
-6. Обновить registry, repository index/map and relevant state.
+6. Обновить registry, repository index/map и relevant state.
 7. Выполнить link/orphan/language checks.
 8. Ответить пользователю только после GitHub persistence.
 
@@ -65,6 +65,8 @@ no_new_product_feature_added: true
 state_update_or_final_evidence_records_exception: true
 validation_run_after_write: true
 ```
+
+После закрытия repair `allowed_exception` возвращается в `null`; история repair хранится в `Checks/final.md`, `context_summary` и внешнем evidence archive, а не в активной поблажке.
 
 ## Closure gate
 
