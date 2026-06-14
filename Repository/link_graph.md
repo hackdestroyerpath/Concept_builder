@@ -89,29 +89,29 @@ Root README является исключением: он вместо backlink 
 ## Link/orphan validation procedure
 
 1. Распарсить [file_index.jsonl](file_index.jsonl) как JSONL; каждая строка должна иметь `path`, `kind`, `owner_mode`, `purpose`, `parent`, `primary_source`, `described_in`, `status`.
-2. Открыть каждый `status=active` path через GitHub Connector на проверяемой ветке.
-3. Для каждого Markdown-файла извлечь относительные links `(...md)`, `(...json)`, `(...jsonl)` и проверить, что целевой путь существует в indexed active paths или является допустимым future-template path внутри issue/concept instance.
-4. Проверить root reachability: README → route → file. Файл без route считается orphan даже если физически существует.
-5. Проверить backlinks: child/summary files должны возвращаться к parent или primary source.
-6. Проверить dev-only terms: `handoff`, `phase1_audit`, `task-state`, `implementation_report`, `checkpoint`, `temporary_notes`, `original_handoff`. Совпадения допустимы только в запретительных правилах README/link/final, не как production path.
-7. Проверить language gate: readable Markdown по умолчанию русский; allowed English ограничен technical names/tokens.
-8. Результат записать в [Checks/final.md](../Checks/final.md) с input set, method, result, exceptions and rerun notes.
+2. Получить recursive tree snapshot: GitHub tree UI/contents traversal для physical paths и GitHub Connector read-back для every indexed leaf file. Если available GitHub API tree endpoint или archive checkout используется в будущем, он заменяет UI traversal без изменения критериев.
+3. Сравнить physical paths с `status=active` paths из file index.
+4. Для каждого Markdown-файла извлечь относительные links `(...md)`, `(...json)`, `(...jsonl)` и проверить, что целевой путь существует в indexed active paths или является допустимым future-template path внутри issue/concept instance.
+5. Проверить root reachability: README → route → file. Файл без route считается orphan даже если физически существует.
+6. Проверить backlinks: child/summary files должны возвращаться к parent или primary source.
+7. Проверить dev-only terms: `handoff`, `phase1_audit`, `task-state`, `implementation_report`, `checkpoint`, `temporary_notes`, `original_handoff`. Совпадения допустимы только в запретительных правилах README/link/final, не как production path.
+8. Проверить language gate: readable Markdown по умолчанию русский; allowed English ограничен technical names/tokens with nearby Russian meaning.
+9. Результат записать в [Checks/final.md](../Checks/final.md) с input set, method, result, exceptions and rerun notes.
 
 ## Validation evidence snapshot
 
 ```yaml
-baseline_commit_before_this_hardening: "67baf2d9cd6fd864317a3fd7d689909f5b3a8cdb"
-validation_branch: "phase2-final-evidence-hardening-20260613"
-target_branch_after_merge: "main"
+round2_baseline_main_commit: "a87aa0cd8f5eb6e3f01b16bb108a9e7f4eafe352"
+round2_work_branch: "r2-fixes"
+validation_target: "main after PR merge"
 indexed_active_files: 24
-new_production_files_added_by_this_hardening: []
-production_files_deleted_by_this_hardening: []
+recursive_tree_snapshot_available: true
+recursive_tree_snapshot_method: "GitHub public tree UI traversal + connector read-back for indexed leaf files"
+indexed_active_files_missing: []
+physical_files_not_in_file_index: []
+new_production_files_added_by_round2: []
+production_files_deleted_by_round2: []
 dev_only_files_expected_in_production: []
-recursive_tree_validation_method:
-  - file_index_jsonl_parse
-  - connector_fetch_file_for_each_indexed_path
-  - root_route_and_backlink_review
-  - dev_only_keyword_search
-  - relative_link_resolution
 final_evidence_file: "Checks/final.md"
+final_archive_records_current_main_commit_after_merge: true
 ```
