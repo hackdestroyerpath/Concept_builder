@@ -4,17 +4,17 @@
 
 ## Назначение
 
-`Inbox/` хранит входные материалы, из которых могут появляться service-level или concept-level issue. Primary workflow находится в [input_registry.md](../Protocols/service/input_registry.md).
+`Inbox/` хранит входные материалы, из которых могут появляться служебные или концептные `issue`, то есть задачи. Основной рабочий процесс описан в [input_registry.md](../Protocols/service/input_registry.md).
 
 ## Связанные файлы
 
-- [Input registry](../Protocols/service/input_registry.md)
-- [Service issue registry](../Issues/registry.jsonl)
+- [Входные материалы и registry](../Protocols/service/input_registry.md)
+- [Служебный реестр задач](../Issues/registry.jsonl)
 - [Service Mode](../Protocols/service/service_mode.md)
 
-## Input folder
+## Папка входа
 
-Новый input использует путь `Inbox/<input_id>/` и содержит:
+Новый вход использует путь `Inbox/<input_id>/` и содержит:
 
 ```text
 entry.md
@@ -22,16 +22,16 @@ input_manifest.json
 attachments/
 ```
 
-`attachments/` используется только если вложения нужны текущему issue.
+`attachments/` используется только если вложения нужны текущей задаче.
 
-## Reserve rule
+## Правило резерва
 
-Для non-compact input entry and manifest are persisted before analysis. Registry and issue state are written before user-facing response.
+Для некомпактного входа `entry.md` и `input_manifest.json` сохраняются до анализа. Строка реестра и состояние задачи сохраняются до ответа пользователю.
 
-## Cleanup
+## Очистка
 
-Cleanup или tombstone выполняются только после проверки links, registry references и state references.
+Очистка или tombstone выполняются только после проверки ссылок, записей реестра и ссылок из файлов состояния.
 
 ## Текущий статус
 
-Активных input folders нет. Пустые папки не создаются.
+Активных входных папок нет. Пустые папки не создаются.
