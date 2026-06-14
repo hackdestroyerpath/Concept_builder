@@ -1,17 +1,17 @@
-# State schema
+# Схема состояния
 
 [Назад к README](../README.md)
 
 ## Назначение
 
-Primary source для всех state-файлов `Concept Builder`: top-level service/execution state, concept state, issue state и output/report linkage. Схема нужна для восстановления работы в новом чате без загрузки всего репозитория.
+Основной источник для всех state-файлов `Concept Builder`: верхнего service/execution state, concept state, issue state и связи output/report. Схема нужна для восстановления работы в новом чате без загрузки всего репозитория.
 
 ## Связанные файлы
 
-- [Service state](service_state.json)
-- [Execution index state](execution_index_state.json)
-- [Focus packet](../Protocols/common/focus_packet.md)
-- [State update](../Protocols/common/state_update.md)
+- [Состояние service](service_state.json)
+- [Состояние execution](execution_index_state.json)
+- [Пакет фокуса](../Protocols/common/focus_packet.md)
+- [Обновление состояния](../Protocols/common/state_update.md)
 
 ## Общие обязательные поля
 
@@ -19,7 +19,7 @@ Primary source для всех state-файлов `Concept Builder`: top-level s
 |---|---|---|
 | `state_id` | string | устойчивый идентификатор state-файла |
 | `mode` | enum | `service`, `execution`, `concept`, `issue`, `output` |
-| `current_phase` | string | текущая фаза workflow |
+| `current_phase` | string | текущая фаза рабочего процесса |
 | `current_focus` | string/null | текущий объект внимания |
 | `current_entity_id` | string/null | id issue/concept/input/export; при no-active допускается `null` |
 | `parent_anchor` | string/null | parent issue/concept/root route |
@@ -32,147 +32,46 @@ Primary source для всех state-файлов `Concept Builder`: top-level s
 | `last_persisted_at` | ISO-8601 string | время фактической записи |
 | `state_revision` | integer | увеличивается при каждом сохранении |
 | `state_hash` | string | `sha256:<hex>` по правилу ниже |
-| `last_context_bundle_id` | string | последний focus packet/context bundle |
+| `last_context_bundle_id` | string | последний пакет контекста |
 | `context_summary` | string | краткая выжимка текущего состояния |
 | `source_files` | array | источники текущего состояния |
 | `output_files` | array | файлы, изменённые последней операции |
 | `status` | enum | `active`, `waiting_user`, `blocked`, `closed` |
 
-## State hash semantics
+## Правило state_hash
 
-`state_hash` не может быть `pending`, пустой строкой или `null` для active state. Значение вычисляется так:
+`state_hash` не может быть `pending`, пустой строкой или `null` для active state. Значение вычисляется так: взять JSON, временно удалить `state_hash`, сериализовать canonical JSON с сортировкой ключей и compact separators, посчитать SHA-256 и записать `sha256:<64 hex>`.
 
-1. взять JSON state;
-2. временно удалить поле `state_hash`;
-3. сериализовать canonical JSON с сортировкой ключей, UTF-8 и compact separators;
-4. посчитать SHA-256;
-5. записать строку `sha256:<64 hex>`.
-
-Если hash нельзя вычислить до записи, операция считается незавершённой: state получает `status=blocked`, `pending_user_action="repair_state_hash"`, а агент не сообщает `persisted=yes`.
+Если hash нельзя вычислить до записи, операция незавершённа: state получает `status=blocked`, `pending_user_action="repair_state_hash"`, а агент не сообщает `persisted=yes`.
 
 ## Service state
 
-`State/service_state.json` добавляет:
+`State/service_state.json` добавляет `active_service_issue_id`, `issue_registry_path`, `service_mutation_gate`, `last_input_id` и `cleanup_queue`. Поле `service_mutation_gate.allowed_exception` возвращается в `null` после завершённого ремонта.
 
-```json
-{
-  "active_service_issue_id": null,
-  "issue_registry_path": "Issues/registry.jsonl",
-  "service_mutation_gate": {
-    "approved_issue_required": true,
-    "allowed_exception": null,
-    "evidence_path": null
-  },
-  "last_input_id": null,
-  "cleanup_queue": []
-}
-```
-
-Service state используется при system-file mutation, input registry, cleanup/tombstone, final validation and service issue recovery. Если registry row и `active_service_issue_id` расходятся, обычная mutation блокируется до repair.
+Service state используется при изменении системных файлов, input registry, cleanup/tombstone, финальной validation и восстановлении service issue. Если registry row и `active_service_issue_id` расходятся, обычная mutation блокируется до ремонта.
 
 ## Execution index state
 
-`State/execution_index_state.json` добавляет:
-
-```json
-{
-  "active_concept": null,
-  "concepts": [],
-  "concept_registry_status": "empty|active|conflict",
-  "last_concept_action": null,
-  "execution_startup_case": "no_active|active_known|active_unknown"
-}
-```
-
-При `active_known` agent открывает concept state, README, manifest, structure and local registry. При `active_unknown` agent выполняет focus recovery. При `no_active` нельзя создавать demo concept без реального запроса.
+`State/execution_index_state.json` добавляет `active_concept`, `concepts`, `concept_registry_status`, `last_concept_action` и `execution_startup_case`. При `active_known` агент открывает concept state, README, manifest, structure и local registry. При `active_unknown` агент выполняет focus recovery. При `no_active` нельзя создавать demo concept без реального запроса.
 
 ## Concept state
 
-Каждая реальная концепция обязана иметь `Concepts/<concept_slug>/state.json`. Минимальная схема:
+Каждая реальная концепция обязана иметь `Concepts/<concept_slug>/state.json`. Concept state хранит `concept_slug`, `active_issue_id`, `readiness_status`, `export_status`, `last_export_report`, `last_exported_at`, `last_export_package`, `manifest_path`, `structure_path`, `local_issue_registry`, `focus_pointers` и `open_issues_snapshot`.
 
-```json
-{
-  "state_id": "concept:<slug>",
-  "mode": "concept",
-  "concept_slug": "<slug>",
-  "current_phase": "skeleton|draft|ready|exporting|released|blocked",
-  "current_focus": "concept_root|page|issue|export",
-  "current_entity_id": "<slug>",
-  "active_issue_id": null,
-  "readiness_status": "skeleton|in_progress|ready|blocked",
-  "export_status": "never_exported|draft_exported|final_exported|blocked",
-  "last_export_report": null,
-  "last_exported_at": null,
-  "last_export_package": null,
-  "manifest_path": "Concepts/<slug>/manifest.jsonl",
-  "structure_path": "Concepts/<slug>/structure.md",
-  "local_issue_registry": "Concepts/<slug>/Issues/registry.jsonl",
-  "focus_pointers": [],
-  "open_issues_snapshot": []
-}
-```
-
-Skeleton concept is not ready until required pages, state, manifest, structure, local registry and link network are synchronized.
+Skeleton concept не считается ready, пока required pages, state, manifest, structure, local registry и link network не синхронизированы.
 
 ## Issue state
 
-Issue state используется в `Issues/active/<issue_id>/state.json` или `Concepts/<slug>/Issues/active/<issue_id>/state.json`. Дополнительные поля:
+Issue state используется в `Issues/active/<issue_id>/state.json` или `Concepts/<slug>/Issues/active/<issue_id>/state.json`. Он хранит id задачи, scope, type, registry path, source input, status, parent/child links, dependencies, requirements status, plan status, solution status, contract status, output status, affected files, allowed files и blocked files.
 
-```json
-{
-  "issue_id": "...",
-  "issue_scope": "service|concept",
-  "issue_type": "simple|complex|linked|child",
-  "registry_path": ".../registry.jsonl",
-  "source_input_id": null,
-  "status": "proposed|open|qa|requirements_draft|requirements_approved|planned|plan_approved|solution_approved|contract_approved|executing|validating|closed|blocked|tombstoned",
-  "parent_id": null,
-  "child_ids": [],
-  "linked_issue_ids": [],
-  "blocks": [],
-  "depends_on": [],
-  "uses_output_of": [],
-  "related_to": [],
-  "qa_decision_reason": null,
-  "requirements_status": "missing|draft|approved",
-  "plan_status": "missing|draft|approved",
-  "solution_status": "missing|draft|approved",
-  "contract_status": "missing|draft|approved",
-  "output_status": "missing|draft|ready|verified|failed",
-  "affected_files": [],
-  "allowed_files": [],
-  "blocked_files": []
-}
-```
+Прямые переходы к execution запрещены без approved requirements, plan, solution и contract, кроме atomic repair exception с записанными reason и evidence.
 
-Запрещены прямые переходы к execution без approved requirements, plan, solution and contract, кроме atomic repair exception с записанным reason and evidence.
+## Связь output/report со state
 
-## Output/report state linkage
-
-`output/report.md` является читаемым отчётом. Issue state хранит машинную связку:
-
-```json
-{
-  "output_report_path": ".../output/report.md",
-  "output_status": "draft|ready|verified|failed",
-  "commit_sha": "...",
-  "changed_files": [],
-  "checks": [],
-  "link_orphan_result": "pass|fail",
-  "language_gate": "pass|fail",
-  "residual_risks": [],
-  "closure_allowed": false
-}
-```
+`output/report.md` является читаемым отчётом. Issue state хранит `output_report_path`, `output_status`, `commit_sha`, `changed_files`, `checks`, `link_orphan_result`, `language_gate`, `residual_risks` и `closure_allowed`.
 
 `output_report.md` запрещён. Единственный путь — `output/report.md`.
 
-## Recovery rules
+## Правила восстановления
 
-Если `state_hash` invalid, `current_entity_id` нужен, но отсутствует, active state file не открывается, `state_revision_loaded` не совпадает или registry/manifest конфликтует со state, агент обязан:
-
-1. остановить обычный workflow;
-2. собрать focus packet с `context_confidence=low`;
-3. открыть README, file index, link graph, relevant state and primary protocol;
-4. восстановить missing fields или поставить `pending_user_action`;
-5. сохранить relevant state перед продолжением.
+Если `state_hash` invalid, `current_entity_id` нужен, но отсутствует, active state file не открывается, `state_revision_loaded` не совпадает или registry/manifest конфликтует со state, агент обязан остановить обычный workflow, собрать focus packet с `context_confidence=low`, открыть README, file index, link graph, relevant state и primary protocol, восстановить missing fields или поставить `pending_user_action`, затем сохранить relevant state перед продолжением.
