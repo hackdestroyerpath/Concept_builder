@@ -4,17 +4,17 @@
 
 ## Назначение
 
-Основной protocol для service-level и concept-level issue: resume, reason, QA, requirements, plan, solution, contract, execution, output/report и closure. Этот файл задаёт workflow; [complex_linked.md](complex_linked.md) расширяет его для child/dependency cases.
+Основной протокол для служебных и концептных issue: продолжение работы, причина, вопросы, требования, план, решение, договор, выполнение, отчёт и закрытие. Этот файл задаёт рабочий процесс; [complex_linked.md](complex_linked.md) расширяет его для дочерних и зависимых задач.
 
 ## Связанные файлы
 
 - [Service Mode](../service/service_mode.md)
 - [Execution Mode](../execution/execution_mode.md)
-- [Input registry](../service/input_registry.md)
-- [Complex linked issue](complex_linked.md)
-- [Issue template](../../Templates/issue/README.md)
+- [Входные материалы и registry](../service/input_registry.md)
+- [Сложные и связанные issue](complex_linked.md)
+- [Шаблон issue](../../Templates/issue/README.md)
 
-## Issue folder
+## Папка issue
 
 ```text
 state.json
@@ -28,26 +28,26 @@ output/report.md
 output/attachments/    # только если вложения действительно нужны
 ```
 
-`output/report.md` является единственным допустимым именем отчёта. `output_report.md` считается broken template path.
+`output/report.md` является единственным допустимым именем отчёта. `output_report.md` считается неверным путём шаблона.
 
-## Registry и resume
+## Registry и продолжение
 
-Resume начинается с registry row, а не с памяти. Agent открывает:
+Продолжение начинается со строки registry, а не с памяти. Агент открывает:
 
-1. relevant registry row;
-2. issue `state.json`;
+1. нужную строку registry;
+2. `state.json` задачи;
 3. `reason.md`;
-4. current phase file;
-5. parent/child/linked rows, если они есть;
-6. focus packet.
+4. файл текущей фазы;
+5. строки parent/child/linked, если они есть;
+6. пакет фокуса.
 
-Если registry row и state расходятся, issue получает status `blocked: registry_state_conflict` до repair.
+Если registry row и state расходятся, issue получает статус `blocked: registry_state_conflict` до ремонта.
 
-## Reason и mirror gate
+## Причина и зеркало
 
-`reason.md` — canonical stored reason (каноническая сохранённая причина). Если issue создан из user-facing proposal, response reason и `reason.md` должны совпадать byte-for-byte. При mismatch execution и closure блокируются до repair mirror.
+`reason.md` — каноническая сохранённая причина. Если issue создана из предложения, показанного пользователю, текст причины в ответе и `reason.md` должны совпадать byte-for-byte. При несовпадении выполнение и закрытие блокируются до ремонта зеркала.
 
-## QA gate
+## Проверка вопросов
 
 `qa.md` создаётся только если нужны реальные вопросы. Если вопросы не нужны, state и requirements фиксируют:
 
@@ -57,9 +57,9 @@ qa_decision_reason: "..."
 qa_file_created: false
 ```
 
-Если QA required, requirements нельзя approve до ответа на вопросы или явного user waiver.
+Если вопросы обязательны, requirements нельзя approve до ответа на вопросы или явного отказа пользователя от вопросов.
 
-## Requirements gate
+## Проверка requirements
 
 `requirements.md` содержит:
 
@@ -72,21 +72,21 @@ unknowns: []
 user_approval: required|received|waived_with_reason
 ```
 
-Plan может стартовать только после `requirements_status=approved`, кроме explicit discovery-only issue, где output — это вопросы, а не production mutation.
+План может стартовать только после `requirements_status=approved`, кроме явной исследовательской issue, где результатом являются вопросы, а не изменение рабочих файлов.
 
-## Plan, solution и contract gates
+## Проверки плана, решения и договора
 
-| File | Минимальное содержание | Gate |
+| Файл | Минимальное содержание | Условие допуска |
 |---|---|---|
-| `plan.md` | steps, affected files, validation plan, rollback/repair note | approved before solution |
-| `solution.md` | selected approach, alternatives rejected, exact file operations | approved before contract |
-| `contract.md` | allowed files, blocked files, persistence order, success/failure evidence | approved before execution |
+| `plan.md` | steps, affected files, validation plan, rollback/repair note | утверждён до решения |
+| `solution.md` | selected approach, alternatives rejected, exact file operations | утверждён до договора |
+| `contract.md` | allowed files, blocked files, persistence order, success/failure evidence | утверждён до выполнения; английские элементы здесь являются именами полей договора |
 
 Выполнение без known affected files и persistence plan запрещено.
 
-## Execution gate
+## Проверка выполнения
 
-Перед editing files:
+Перед изменением файлов:
 
 ```yaml
 requirements_approved: true
@@ -99,9 +99,9 @@ persistence_order_known: true
 validation_plan_known: true
 ```
 
-Atomic repair exception фиксирует reason, files, checks и state/output evidence. После завершения repair активная service exception должна быть сброшена, если она была использована.
+Atomic repair exception фиксирует reason, files, checks и state/output evidence. После завершения ремонта активная service exception должна быть сброшена, если она была использована.
 
-## Output/report schema
+## Схема output/report
 
 `output/report.md` содержит:
 
@@ -121,9 +121,9 @@ closure_allowed: true|false
 next_expected_step: string
 ```
 
-Attachments размещаются в `output/attachments/` только если нужны и должны быть указаны в report.
+Вложения размещаются в `output/attachments/` только если нужны и должны быть указаны в report.
 
-## Closure transitions
+## Переходы закрытия
 
 ```text
 validating -> closed       only if output verified and propagation done
@@ -132,12 +132,12 @@ closed -> open             only via separate repair issue
 open|approved -> tombstoned if user rejects or supersedes before execution
 ```
 
-Closure требует registry row, issue state, output/report, parent-child propagation, link/orphan check и persistence verification.
+Закрытие требует строки registry, state задачи, output/report, распространения к parent/child, проверки ссылок и фактического сохранения.
 
-## Requalification
+## Переквалификация
 
-Issue requalifies, когда simple становится complex, service становится concept, появляется child issue или dependency, меняется requirements scope, output влияет на другой issue или affected files переходят через mode boundaries. Requalification обновляет registry row, state, focus packet и при необходимости delegates to [complex_linked.md](complex_linked.md).
+Issue переквалифицируется, когда простая задача становится сложной, service становится concept, появляется child issue или dependency, меняется scope requirements, output влияет на другую issue или affected files переходят границы режимов. Переквалификация обновляет registry row, state, пакет фокуса и при необходимости передаёт работу в [complex_linked.md](complex_linked.md).
 
-## Concept issue variation
+## Вариант concept issue
 
-Concept issue использует те же gates, но allowed mutations остаются внутри `Concepts/<slug>/`, кроме `State/execution_index_state.json`, если меняется summary активной концепции. Manifest, structure, local registry и concept state updates являются hard gates для page creation/deletion/rename.
+Concept issue использует те же проверки, но allowed mutations остаются внутри `Concepts/<slug>/`, кроме `State/execution_index_state.json`, если меняется summary активной концепции. Manifest, structure, local registry и обновления состояния concept являются жёсткими условиями для создания, удаления или переименования страниц.
