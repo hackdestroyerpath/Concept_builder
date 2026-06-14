@@ -98,17 +98,17 @@ Templates/issue/README.md
 8. Проверить языковой барьер: читаемый Markdown пишется по-русски; английский допустим только для путей, режимов, машинных значений и необходимых технических токенов с русским смыслом рядом.
 9. Результат записать в [Checks/final.md](../Checks/final.md) с набором входов, методом, результатом, исключениями и правилом повтора.
 
-## Снимок проверки Round 3
+## Снимок проверки Round 4
 
 ```yaml
-round3_baseline_main_commit: "49fc06c174ad021deb1e85998e3ecab41d26e584"
-round3_work_branch: "agent/20260614-round3-language-gate"
-validation_target: "main after PR merge"
+round4_baseline_main_commit: "db0bab94418165a1d9c9302d43977b3cee7d6b8b"
+round4_work_branch: "agent/20260614-round4-language-gate"
+validation_target: "main после PR merge"
 indexed_active_files: 24
 active_markdown_files_scanned: 20
-language_cleanup_scope: "all active readable Markdown files"
-new_production_files_added_by_round3: []
-production_files_deleted_by_round3: []
+language_cleanup_scope: "все активные читаемые Markdown-файлы"
+new_production_files_added_by_round4: []
+production_files_deleted_by_round4: []
 dev_only_files_expected_in_production: []
 final_evidence_file: "Checks/final.md"
 external_archive_required: true
