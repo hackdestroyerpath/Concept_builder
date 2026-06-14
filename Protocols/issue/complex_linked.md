@@ -1,22 +1,22 @@
-# Complex and linked issue
+# Сложные и связанные issue
 
-[Назад к issue lifecycle](issue_lifecycle.md)
+[Назад к жизненному циклу issue](issue_lifecycle.md)
 
 ## Назначение
 
-Основной protocol для complex issue, child issue, linked issue, dependency safeguards, readiness и propagation.
+Основной протокол для complex issue, child issue, linked issue, защит зависимостей, готовности и распространения результатов.
 
 ## Связанные файлы
 
-- [Issue lifecycle](issue_lifecycle.md)
-- [Input registry](../service/input_registry.md)
+- [Жизненный цикл issue](issue_lifecycle.md)
+- [Входные материалы и registry](../service/input_registry.md)
 - [Execution Mode](../execution/execution_mode.md)
 
-## Complex criteria
+## Критерии сложности
 
-Complex issue нужен, если задача имеет independent work units, child approval, разные scopes, dependency chain, separate output contract, partial approval risk или recursion risk.
+Complex issue нужна, если задача имеет независимые рабочие части, утверждение child issue, разные scope, цепочку dependency, отдельный output contract, риск частичного утверждения или риск рекурсии.
 
-## Parent issue fields
+## Поля parent issue
 
 Parent state добавляет:
 
@@ -31,15 +31,15 @@ Parent state добавляет:
 }
 ```
 
-## Child approval workflow
+## Рабочий процесс утверждения child issue
 
-1. Parent предлагает child candidates как `proposed` rows, не как `open` rows.
-2. User может approve all, approve selected, reject selected, discuss или edit child candidates.
-3. Approved children переходят в `open` и получают state/reason/requirements skeleton.
-4. Rejected children получают tombstone row с reason.
-5. Parent может execute только части, не заблокированные children; parent closes только когда approved children closed, waived or explicitly superseded.
+1. Parent предлагает child candidates как строки `proposed`, а не как строки `open`.
+2. Пользователь может утвердить все, утвердить выбранные, отклонить выбранные, обсудить или изменить child candidates.
+3. Утверждённые children переходят в `open` и получают skeleton из state, reason и requirements.
+4. Отклонённые children получают tombstone row с reason.
+5. Parent может выполнять только части, не заблокированные children; parent закрывается только когда утверждённые children закрыты, waived или явно superseded.
 
-## Relationship schema
+## Схема связей
 
 ```json
 {
@@ -55,9 +55,9 @@ Parent state добавляет:
 }
 ```
 
-## Linked issue readiness
+## Готовность linked issue
 
-Issue может execute только если:
+Issue может выполняться только если:
 
 ```yaml
 dependencies_closed_or_waived: true
@@ -68,32 +68,32 @@ blocking_children: []
 contract_allows_cross_file_change: true
 ```
 
-Если linked issue uses output of another issue, output/report path и commit SHA должны быть записаны before execution. То есть dependent issue не стартует, пока required output не сохранён и не проверен.
+Если linked issue использует output другой issue, путь `output/report.md` и commit SHA должны быть записаны до выполнения. Зависимая issue не стартует, пока нужный output не сохранён и не проверен.
 
-## Safeguards
+## Защитные правила
 
-- Maximum depth: 3 unless user approves deeper split.
-- Maximum proposed children per pass: 7.
-- Dependency graph must be acyclic.
-- Child cannot change parent files unless contract allows it.
-- Parent cannot close by summary-only output.
-- Rejected child keeps tombstone; deletion without trace is forbidden.
-- Cross-mode mutation escalates to service issue.
+- Максимальная глубина: 3, если пользователь явно не утвердил более глубокое деление.
+- Максимум предложенных children за один проход: 7.
+- Граф зависимостей должен быть ациклическим.
+- Child не может менять parent files, если договор это не разрешает.
+- Parent не закрывается результатом одной краткой сводки.
+- Отклонённый child сохраняет tombstone; удаление без следа запрещено.
+- Межрежимное изменение переводится в служебную issue.
 
-## Propagation after closure
+## Распространение после закрытия
 
-После child/linked closure agent обновляет:
+После закрытия child/linked agent обновляет:
 
 1. child output/report;
 2. child state;
 3. parent summary и state;
 4. downstream issue state, если `blocks` или `uses_output_of` изменились;
-5. registry rows;
-6. link graph/manifest, если files changed.
+5. строки registry;
+6. link graph или manifest, если изменились файлы.
 
-Если propagation fails, closure блокируется со status `blocked: propagation_failed`.
+Если propagation fails, closure блокируется со статусом `blocked: propagation_failed`.
 
-## Dry-run example
+## Пример dry-run
 
 ```yaml
 parent: svc_parent
