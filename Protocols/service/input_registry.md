@@ -1,10 +1,10 @@
-# Input and registry
+# Входные материалы и registry
 
 [Назад к README](../../README.md)
 
 ## Назначение
 
-Primary protocol для `Inbox/`, `input_manifest.json`, service issue registry, reason mirror, limited reserve и cleanup/tombstone policy.
+Основной protocol для `Inbox/`, `input_manifest.json`, service issue registry, reason mirror, limited reserve и cleanup/tombstone policy.
 
 ## Связанные файлы
 
@@ -13,7 +13,7 @@ Primary protocol для `Inbox/`, `input_manifest.json`, service issue registry,
 - [Inbox](../../Inbox/README.md)
 - [Service issue registry](../../Issues/registry.jsonl)
 
-## Compact vs non-compact input
+## Compact и non-compact input
 
 Compact input можно обработать без `Inbox/<input_id>/`, если все условия истинны:
 
@@ -35,10 +35,10 @@ no_need_to_reconstruct_source_later: true
 2. создать `Inbox/<input_id>/input_manifest.json`;
 3. сохранить needed attachments;
 4. создать или обновить registry row;
-5. создать issue state and reason;
-6. только потом анализировать and отвечать.
+5. создать issue state и reason;
+6. только потом анализировать и отвечать.
 
-Если любой шаг persistence не прошёл, workflow останавливается and response states: `Persistence не выполнен: input/registry не сохранён.`
+Если любой шаг persistence не прошёл, workflow останавливается, а response сообщает: `Persistence не выполнен: input/registry не сохранён.`
 
 ## input_manifest schema
 
@@ -58,7 +58,7 @@ no_need_to_reconstruct_source_later: true
 }
 ```
 
-Hash covers `entry.md` content and manifest fields except `hash`.
+Hash покрывает content файла `entry.md` и поля manifest, кроме самого поля `hash`.
 
 ## Registry row JSONL schema
 
@@ -97,7 +97,7 @@ blocked -> open|tombstoned
 closed -> open only through separate repair issue
 ```
 
-Запрещены прямые переходы `proposed -> executing`, `closed -> executing`, `tombstoned -> open` without separate repair issue.
+Запрещены прямые переходы `proposed -> executing`, `closed -> executing`, `tombstoned -> open` без отдельного repair issue.
 
 ## Commands
 
@@ -116,9 +116,9 @@ Combined decisions применяются атомарно: сначала ва�
 
 ## Reason mirror
 
-Полный `Reason` в ответе пользователю и `reason.md` должны совпадать побуквенно. Проверка: byte-for-byte comparison UTF-8 after normalization to LF line endings. При mismatch response не отправляется, issue получает `blocked: reason_mirror_mismatch`, and user sees repair action.
+Полный `Reason` в ответе пользователю и `reason.md` должны совпадать побуквенно. Проверка: byte-for-byte comparison UTF-8 после нормализации line endings к LF. При mismatch response не отправляется, issue получает `blocked: reason_mirror_mismatch`, а пользователь видит repair action.
 
-Response fields for proposed issue:
+Поля response для proposed issue:
 
 ```yaml
 Reason source: chat|entry.md|file
@@ -142,7 +142,7 @@ Tombstone сохраняет identity/history. Минимальные поля:
 }
 ```
 
-Cleanup разрешён только после проверки backlinks, registry references, state references and parent/child links. Удаление без tombstone trace запрещено для issue/input, которые уже упоминались в registry или output/report.
+Cleanup разрешён только после проверки backlinks, registry references, state references и parent/child links. Удаление без tombstone trace запрещено для issue/input, которые уже упоминались в registry или output/report.
 
 ## Response templates
 
