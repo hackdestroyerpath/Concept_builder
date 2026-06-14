@@ -1,37 +1,37 @@
-# Service Mode protocol
+# Протокол Service Mode
 
 [Назад к README](../../README.md)
 
 ## Назначение
 
-Основной protocol для обслуживания самого `Concept Builder`: protocols, state schema, project instructions, repository maps, service issue и validation. Этот режим не ведёт пользовательские концепции как основную работу.
+Основной протокол обслуживания самого `Concept Builder`: протоколы, схемы состояния, инструкции проекта, карты репозитория, служебные issue и проверки. Этот режим не ведёт пользовательские концепции как основную работу.
 
 ## Связанные файлы
 
-- [Startup protocol](../common/startup.md)
-- [Input registry](input_registry.md)
-- [Issue lifecycle](../issue/issue_lifecycle.md)
-- [State update](../common/state_update.md)
-- [Service state](../../State/service_state.json)
+- [Протокол запуска](../common/startup.md)
+- [Входные материалы и registry](input_registry.md)
+- [Жизненный цикл issue](../issue/issue_lifecycle.md)
+- [Обновление состояния](../common/state_update.md)
+- [Состояние service](../../State/service_state.json)
 
 ## Разрешено
 
 - менять `README.md`, `Repository/file_index.jsonl`, `Repository/link_graph.md`, `Checks/final.md`;
 - менять `Instructions/`, `State/`, `Protocols/`, `Templates/`;
-- вести service-level issue и registry;
-- выполнять link/orphan/language validation;
-- исправлять system-file defects после mutation gate.
+- вести служебные issue и registry;
+- выполнять проверки ссылок, сиротских файлов и языка;
+- исправлять дефекты системных файлов после проверки изменения.
 
 ## Запрещено
 
-- создавать demo concepts без реального пользовательского запроса;
-- загружать handoff/audit/checkpoint/task-state archives в production repo;
-- менять concept files как основную задачу, кроме documented cross-mode repair;
-- объявлять persistence или pass без evidence.
+- создавать демонстрационные concepts без реального пользовательского запроса;
+- загружать handoff, audit, checkpoint, task-state archives в рабочий репозиторий;
+- менять файлы concept как основную задачу, кроме записанного межрежимного ремонта;
+- объявлять запись или успешную проверку без evidence.
 
-## System-file mutation gate
+## Проверка изменения системных файлов
 
-Изменение system files разрешено только если выполнено одно из условий:
+Изменение системных файлов разрешено только если выполнено одно из условий:
 
 ```yaml
 approved_service_issue_exists: true
@@ -41,22 +41,22 @@ affected_files_listed: true
 persistence_plan_known: true
 ```
 
-Narrow exception допустим для emergency repair README/state/hash/link/final evidence, но exception должен быть записан в state/output evidence и проверен после записи. Exception не отменяет проверки и после завершения repair должен быть сброшен в `State/service_state.json`.
+Узкое исключение допустимо для аварийного ремонта README, state, hash, ссылок или финальной проверки. Исключение записывается в состояние или доказательства и проверяется после записи. После завершения ремонта `allowed_exception` возвращается в `null`.
 
-## Workflow
+## Рабочий процесс
 
 1. Запустить [startup.md](../common/startup.md).
-2. Зарезервировать input по [input_registry.md](input_registry.md), если запрос не compact или должен продолжаться.
-3. Создать или обновить service issue через [issue_lifecycle.md](../issue/issue_lifecycle.md).
-4. Проверить mutation gate.
-5. Изменить production files.
-6. Обновить registry, repository index/map и relevant state.
-7. Выполнить link/orphan/language checks.
-8. Ответить пользователю только после GitHub persistence.
+2. Зарезервировать вход по [input_registry.md](input_registry.md), если запрос некомпактный или должен продолжаться.
+3. Создать или обновить служебную issue через [issue_lifecycle.md](../issue/issue_lifecycle.md).
+4. Проверить gate, то есть условие допуска изменения системных файлов.
+5. Изменить рабочие файлы.
+6. Обновить registry, индекс, карту репозитория и нужное состояние.
+7. Выполнить проверки ссылок, сиротских файлов и языка.
+8. Ответить пользователю только после сохранения через GitHub.
 
-## Compact repair exception
+## Компактное ремонтное исключение
 
-Для компактной repair-задачи без отдельного issue folder допускается direct patch, если:
+Для компактной repair-задачи без отдельной папки issue допускается direct patch, если:
 
 ```yaml
 user_request_is_current_turn: true
@@ -66,9 +66,9 @@ state_update_or_final_evidence_records_exception: true
 validation_run_after_write: true
 ```
 
-После закрытия repair `allowed_exception` возвращается в `null`; история repair хранится в `Checks/final.md`, `context_summary` и внешнем evidence archive, а не в активной поблажке.
+После закрытия ремонта `allowed_exception` возвращается в `null`; история ремонта хранится в `Checks/final.md`, `context_summary` и внешнем архиве доказательств, а не в активной поблажке.
 
-## Closure gate
+## Условие закрытия
 
 ```yaml
 production_files_written: true

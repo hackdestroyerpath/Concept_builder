@@ -4,18 +4,18 @@
 
 ## Назначение
 
-Основной protocol для `Inbox/`, `input_manifest.json`, service issue registry, reason mirror, limited reserve и cleanup/tombstone policy.
+Основной протокол для `Inbox/`, `input_manifest.json`, служебного registry, зеркалирования причины, ограниченного резерва и правил cleanup/tombstone. `Registry` — это машинный реестр строк JSONL.
 
 ## Связанные файлы
 
 - [Service Mode](service_mode.md)
-- [Issue lifecycle](../issue/issue_lifecycle.md)
+- [Жизненный цикл issue](../issue/issue_lifecycle.md)
 - [Inbox](../../Inbox/README.md)
-- [Service issue registry](../../Issues/registry.jsonl)
+- [Служебный registry](../../Issues/registry.jsonl)
 
-## Compact и non-compact input
+## Компактный и некомпактный вход
 
-Compact input можно обработать без `Inbox/<input_id>/`, если все условия истинны:
+Компактный вход можно обработать без `Inbox/<input_id>/`, если все условия истинны:
 
 ```yaml
 single_turn_complete: true
@@ -25,22 +25,22 @@ no_deferred_user_decision: true
 no_need_to_reconstruct_source_later: true
 ```
 
-Если хотя бы одно условие false, включается limited reserve order. Анализ до reserve запрещён.
+Если хотя бы одно условие false, включается ограниченный резерв. Анализ до резерва запрещён.
 
-## Limited reserve order
+## Порядок ограниченного резерва
 
-Для non-compact input порядок обязателен:
+Для некомпактного входа порядок обязателен:
 
-1. создать `Inbox/<input_id>/entry.md` с source summary или полным допустимым материалом;
+1. создать `Inbox/<input_id>/entry.md` с кратким описанием источника или полным допустимым материалом;
 2. создать `Inbox/<input_id>/input_manifest.json`;
-3. сохранить needed attachments;
-4. создать или обновить registry row;
-5. создать issue state и reason;
+3. сохранить нужные вложения;
+4. создать или обновить строку registry;
+5. создать state задачи и reason, то есть сохранённую причину;
 6. только потом анализировать и отвечать.
 
-Если любой шаг persistence не прошёл, workflow останавливается, а response сообщает: `Persistence не выполнен: input/registry не сохранён.`
+Если любой шаг сохранения не прошёл, процесс останавливается, а ответ сообщает: `Persistence не выполнен: input/registry не сохранён.`
 
-## input_manifest schema
+## Схема input_manifest
 
 ```json
 {
@@ -58,9 +58,9 @@ no_need_to_reconstruct_source_later: true
 }
 ```
 
-Hash покрывает content файла `entry.md` и поля manifest, кроме самого поля `hash`.
+Hash покрывает содержимое `entry.md` и поля manifest, кроме самого поля `hash`.
 
-## Registry row JSONL schema
+## Схема строки registry JSONL
 
 Одна строка `Issues/registry.jsonl`:
 
@@ -87,7 +87,7 @@ Hash покрывает content файла `entry.md` и поля manifest, кр
 }
 ```
 
-## State transitions
+## Переходы состояния
 
 ```text
 proposed -> open -> waiting_user -> approved -> executing -> validating -> closed
@@ -97,9 +97,9 @@ blocked -> open|tombstoned
 closed -> open only through separate repair issue
 ```
 
-Запрещены прямые переходы `proposed -> executing`, `closed -> executing`, `tombstoned -> open` без отдельного repair issue.
+Прямые переходы `proposed -> executing`, `closed -> executing`, `tombstoned -> open` запрещены без отдельной ремонтной issue.
 
-## Commands
+## Команды
 
 Поддерживаются команды:
 
@@ -112,13 +112,13 @@ closed -> open only through separate repair issue
 - `добавить: title + reason`;
 - `фокус: ID`.
 
-Combined decisions применяются атомарно: сначала валидируется весь список команд, затем выполняется один registry update. Если один ID invalid, изменения не применяются частично.
+Составные решения применяются атомарно: сначала валидируется весь список команд, затем выполняется одно обновление registry. Если один ID неверен, изменения не применяются частично.
 
-## Reason mirror
+## Зеркало причины
 
-Полный `Reason` в ответе пользователю и `reason.md` должны совпадать побуквенно. Проверка: byte-for-byte comparison UTF-8 после нормализации line endings к LF. При mismatch response не отправляется, issue получает `blocked: reason_mirror_mismatch`, а пользователь видит repair action.
+Полный `Reason` в ответе пользователю и `reason.md` должны совпадать побуквенно. Проверка: byte-for-byte comparison UTF-8 после нормализации переносов строк к LF. При несовпадении ответ не отправляется, issue получает `blocked: reason_mirror_mismatch`, а пользователь видит действие ремонта.
 
-Поля response для proposed issue:
+Поля ответа для предложенной issue:
 
 ```yaml
 Reason source: chat|entry.md|file
@@ -127,9 +127,9 @@ Registry persistence: written|not_written
 Next action: approve|discuss|reject|edit
 ```
 
-## Cleanup and tombstone
+## Cleanup и tombstone
 
-Tombstone сохраняет identity/history. Минимальные поля:
+Tombstone сохраняет identity/history, то есть идентичность и историю. Минимальные поля:
 
 ```json
 {
@@ -142,11 +142,11 @@ Tombstone сохраняет identity/history. Минимальные поля:
 }
 ```
 
-Cleanup разрешён только после проверки backlinks, registry references, state references и parent/child links. Удаление без tombstone trace запрещено для issue/input, которые уже упоминались в registry или output/report.
+Cleanup разрешён только после проверки обратных ссылок, ссылок registry, ссылок state и связей parent/child. Удаление без tombstone trace запрещено для issue или input, которые уже упоминались в registry или output/report.
 
-## Response templates
+## Шаблоны ответа
 
-### Saved issue proposal
+### Сохранённое предложение issue
 
 ```text
 Issue создан: <issue_id>
@@ -156,7 +156,7 @@ Registry persistence: written
 Доступные действия: утвердить, обсудить, изменить, отклонить, отложить.
 ```
 
-### Persistence failure
+### Ошибка сохранения
 
 ```text
 Persistence не выполнен: registry/input не сохранён.

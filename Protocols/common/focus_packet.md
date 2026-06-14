@@ -1,19 +1,19 @@
-# Focus packet
+# Пакет фокуса
 
 [Назад к README](../../README.md)
 
 ## Назначение
 
-Единственный primary source для focus packet. Focus packet фиксирует минимальный context bundle, который агент должен собрать при startup, resume или focus-loss recovery.
+Единственный основной источник для пакета фокуса. Пакет фокуса фиксирует минимальный набор контекста, который агент собирает при запуске, продолжении или восстановлении потерянного фокуса.
 
 ## Связанные файлы
 
-- [Startup protocol](startup.md)
-- [Context loading](context_loading.md)
-- [State schema](../../State/state_schema.md)
-- [State update](state_update.md)
+- [Протокол запуска](startup.md)
+- [Загрузка контекста](context_loading.md)
+- [Схема состояния](../../State/state_schema.md)
+- [Обновление состояния](state_update.md)
 
-## Schema
+## Схема
 
 ```yaml
 context_bundle_id: string
@@ -42,16 +42,16 @@ health_signal:
   persistence_required_before_response: true|false
 ```
 
-## Hard recovery condition
+## Жёсткое условие восстановления
 
-Если любое из полей `state_file`, `state_revision_loaded`, `current_entity_id` при active entity, `active_state_files` или `active_protocols` не восстановлено, agent не продолжает содержательную работу. Он должен:
+Если любое из полей `state_file`, `state_revision_loaded`, `current_entity_id` при активной сущности, `active_state_files` или `active_protocols` не восстановлено, агент не продолжает содержательную работу. Он должен:
 
 1. выставить `context_confidence=low`;
-2. открыть README, file index, link graph, relevant state и startup/context protocol;
-3. восстановить missing fields;
-4. сохранить relevant state, если recovery меняет state;
+2. открыть README, индекс файлов, карту связей, нужное состояние и протоколы запуска и контекста;
+3. восстановить недостающие поля;
+4. сохранить нужное состояние, если восстановление его меняет;
 5. только после этого продолжать задачу.
 
-## Authority rule
+## Правило авторитета
 
-Другие файлы могут кратко перечислять focus packet, но не имеют права вводить альтернативную схему. При конфликте побеждает этот файл, иначе опять получится бюрократия с несколькими королями на одном табурете.
+Другие файлы могут кратко перечислять пакет фокуса, но не имеют права вводить альтернативную схему. При конфликте побеждает этот файл.

@@ -1,29 +1,29 @@
-# Execution Mode protocol
+# Протокол Execution Mode
 
 [Назад к README](../../README.md)
 
 ## Назначение
 
-Основной protocol для создания, продолжения, issue workflow и export пользовательских концепций в `Concepts/`. System files обслуживаются через `Service Mode`, не через этот режим.
+Основной протокол для создания, продолжения, рабочего процесса issue и export пользовательских концепций в `Concepts/`. Системные файлы обслуживаются через `Service Mode`, не через этот режим.
 
 ## Связанные файлы
 
-- [Startup protocol](../common/startup.md)
-- [Focus packet](../common/focus_packet.md)
-- [Issue lifecycle](../issue/issue_lifecycle.md)
-- [Concept release](../release/concept.md)
-- [Concept template](../../Templates/concept/README.md)
-- [Concepts root](../../Concepts/root.md)
+- [Протокол запуска](../common/startup.md)
+- [Пакет фокуса](../common/focus_packet.md)
+- [Жизненный цикл issue](../issue/issue_lifecycle.md)
+- [Выпуск концепции](../release/concept.md)
+- [Шаблон концепции](../../Templates/concept/README.md)
+- [Корень Concepts](../../Concepts/root.md)
 
-## Startup cases
+## Случаи запуска
 
-| Case | Action |
+| Случай | Действие |
 |---|---|
-| `no_active` | показать actions `создать концепцию`, `открыть список концепций`, `восстановить focus` |
+| `no_active` | показать действия `создать концепцию`, `открыть список концепций`, `восстановить focus` |
 | `active_known` | загрузить concept `state.json`, `README.md`, `manifest.jsonl`, `structure.md`, локальный registry и active protocols |
-| `active_unknown` | выполнить focus-loss recovery, не создавать новую концепцию автоматически |
+| `active_unknown` | выполнить восстановление фокуса, не создавать новую концепцию автоматически |
 
-## Available actions menu
+## Меню доступных действий
 
 ```text
 1 — создать новую концепцию из пользовательского запроса
@@ -34,13 +34,13 @@
 6 — восстановить focus
 ```
 
-Если active concept отсутствует, actions 2, 4 и 5 недоступны.
+Если active concept отсутствует, действия 2, 4 и 5 недоступны.
 
-## Concept creation model
+## Модель создания концепции
 
-Новая концепция создаётся только по реальному запросу пользователя. Сначала создаётся initial skeleton, затем concept becomes ready только после согласованности required content, manifest, structure, state и link network.
+Новая концепция создаётся только по реальному запросу пользователя. Сначала создаётся initial skeleton, то есть начальный каркас; затем concept считается ready только после согласованности required content, manifest, structure, state и link network.
 
-## Минимальный file set для реальной concept folder
+## Минимальный набор файлов реальной concept folder
 
 ```text
 README.md
@@ -57,31 +57,31 @@ pages/              # только с реальными страницами
 
 `state.json` обязателен. Его отсутствие блокирует readiness и export.
 
-## Skeleton vs ready concept
+## Skeleton и ready concept
 
-| State | Allowed | Blocked |
+| State | Разрешено | Заблокировано |
 |---|---|---|
-| skeleton | collect requirements, draft pages, create local issue registry | final export, readiness claim |
-| draft | iterate pages, resolve issues, run link checks | final export with blockers |
-| ready | export precheck, draft/final export | mutation without issue/contract |
+| skeleton | собирать requirements, черновить pages, создавать local issue registry | final export и readiness claim |
+| draft | дорабатывать pages, закрывать issues, запускать link checks | final export при blockers |
+| ready | export precheck, draft/final export | mutation без issue/contract |
 
-Ready требует README forward links, child backlinks, manifest/structure mirror, valid local registry, valid concept state hash, русские readable files и отсутствие blocking open issues.
+Ready требует forward links из README, backlinks дочерних страниц, mirror manifest/structure, valid local registry, valid concept state hash, русские readable files и отсутствие blocking open issues.
 
-## Concept state fields
+## Поля concept state
 
-Concept state follows [State schema](../../State/state_schema.md) и включает `concept_slug`, `active_issue_id`, `readiness_status`, `export_status`, `last_export_report`, `manifest_path`, `structure_path`, `local_issue_registry`, `focus_pointers`.
+Concept state следует [State schema](../../State/state_schema.md) и включает `concept_slug`, `active_issue_id`, `readiness_status`, `export_status`, `last_export_report`, `manifest_path`, `structure_path`, `local_issue_registry`, `focus_pointers`.
 
-## Focus hierarchy
+## Иерархия фокуса
 
 ```text
 execution index -> active concept -> page group -> page -> concept issue -> output
 ```
 
-Agent может drop lower focus только after summary propagation to parent. Parent anchor записывается в focus packet.
+Agent может сбрасывать нижний focus только после переноса summary к parent. Parent anchor записывается в focus packet.
 
-## Concept issue workflow
+## Рабочий процесс concept issue
 
-Local registry row in `Concepts/<slug>/Issues/registry.jsonl` uses service lifecycle fields plus:
+Local registry row в `Concepts/<slug>/Issues/registry.jsonl` использует поля service lifecycle плюс:
 
 ```json
 {
@@ -94,11 +94,11 @@ Local registry row in `Concepts/<slug>/Issues/registry.jsonl` uses service lifec
 }
 ```
 
-Concept issue может менять только files внутри своего concept folder, кроме update верхнего execution index state. Если найден system defect, агент создаёт service issue вместо editing system files.
+Concept issue может менять только файлы внутри concept folder, кроме update верхнего execution index state. Если найден system defect, агент создаёт service issue вместо прямого изменения system files.
 
-## Manifest/structure gate
+## Проверка manifest и structure
 
-Any page creation, deletion, rename or link change inside concept requires:
+Любое создание, удаление, переименование страницы или изменение ссылки внутри concept требует:
 
 ```yaml
 manifest_updated: true
@@ -109,12 +109,12 @@ concept_state_updated: true
 local_registry_updated: true
 ```
 
-Failure блокирует closure и export.
+Сбой проверки блокирует closure и export.
 
-## Slug and first registry gate
+## Slug и первый registry
 
-Перед созданием `Concepts/<slug>/` нужно confirm или derive stable slug. First write creates concept `README.md`, `state.json`, `manifest.jsonl`, `structure.md` и `Issues/registry.jsonl` together in one persistence plan. Empty decorative pages не создаются.
+Перед созданием `Concepts/<slug>/` нужно подтвердить или вывести стабильный slug. Первая запись создаёт `README.md`, `state.json`, `manifest.jsonl`, `structure.md` и `Issues/registry.jsonl` вместе в одном плане сохранения. Пустые декоративные pages не создаются.
 
-## Export route
+## Маршрут export
 
-Export uses [Concept release](../release/concept.md). Draft export может include open nonblocking issues with snapshot. Final export блокируется open blocking issues, missing state, broken links, orphan files, manifest/structure mismatch или failed language gate.
+Export использует [Concept release](../release/concept.md). Draft export может включать open nonblocking issues со снимком. Final export блокируется при open blocking issues, missing state, broken links, orphan files, manifest/structure mismatch или failed language gate; эти токены являются названиями проверочных причин.

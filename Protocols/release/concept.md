@@ -1,25 +1,25 @@
-# Concept release
+# Выпуск концепции
 
 [Назад к Execution Mode](../execution/execution_mode.md)
 
 ## Назначение
 
-Основной protocol для draft/final export, concept closure, link network validation и export report.
+Основной протокол для draft/final export, закрытия концепции, проверки link network и export report.
 
 ## Связанные файлы
 
 - [Execution Mode](../execution/execution_mode.md)
-- [Concept template](../../Templates/concept/README.md)
-- [Concepts root](../../Concepts/root.md)
-- [Final check](../../Checks/final.md)
+- [Шаблон концепции](../../Templates/concept/README.md)
+- [Корень Concepts](../../Concepts/root.md)
+- [Финальная проверка](../../Checks/final.md)
 
-## Export commands
+## Команды export
 
 - `export precheck` — dry-run без создания package.
-- `draft export` — разрешён при open nonblocking issues; snapshot перечисляет их и limitations.
+- `draft export` — разрешён при open nonblocking issues; снимок перечисляет их и limitations.
 - `final export` — разрешён только без open blocking issues и при успешных closure gates.
 
-## Precondition report schema
+## Схема отчёта предварительной проверки
 
 ```yaml
 concept_slug: string
@@ -39,20 +39,20 @@ package_name: string|null
 failure_behavior: block|draft_with_notice|repair_required
 ```
 
-## Draft/final policy
+## Политика draft/final
 
-Draft export может выполняться с open nonblocking issues, если report содержит exact issue snapshot и limitations. Final export блокируется при любом blocking issue, missing output, broken link, orphan file, manifest/structure mismatch, invalid state hash или failed language gate.
+Draft export может выполняться с open nonblocking issues, если report содержит точный снимок issue и limitations. Final export блокируется при любом blocking issue, missing output, broken link, orphan file, manifest/structure mismatch, invalid state hash или failed language gate; рядом эти токены обозначают проверочные причины блокировки.
 
-User override не может превратить blocking issue в final export. Он может создать только non-final draft export.
+Пользовательское переопределение (`User override`) не может превратить blocking issue в final export. Оно может создать только non-final draft export.
 
-## Package naming and metadata
+## Имена package и metadata
 
 ```text
 <concept_slug>__draft__YYYYMMDD_HHMMSS.zip
 <concept_slug>__final__YYYYMMDD_HHMMSS.zip
 ```
 
-Metadata stored in export report:
+Metadata хранится в export report:
 
 ```yaml
 archive_name: string
@@ -64,11 +64,11 @@ open_issues_snapshot: []
 validation_summary: {}
 ```
 
-## Package contents
+## Содержимое package
 
-Package includes только concept-local production files: README, pages, manifest, structure, state, relevant outputs и allowed attachments. Он excludes service work files, implementation notes, unrelated concepts, handoff archives и task-state archives.
+Package включает только concept-local production files: README, pages, manifest, structure, state, relevant outputs и allowed attachments. Он исключает служебные рабочие файлы, implementation notes, unrelated concepts, handoff archives и task-state archives.
 
-## Concept closure checklist
+## Список закрытия concept
 
 ```yaml
 readme_forward_links: true
@@ -82,14 +82,14 @@ export_report_written: true
 concept_state_export_fields_updated: true
 ```
 
-## Local-open validation
+## Локальная проверка открытия
 
-Before export нужно unpack или simulate package root и открыть `README.md`. Every relative link from README and child pages должен resolve внутри package. Broken local-open link блокирует final export и переводит draft export в `draft_with_notice`.
+Перед export нужно распаковать или имитировать package root и открыть `README.md`. Каждая относительная ссылка из README и дочерних pages должна разрешаться внутри package. Сломанная локальная ссылка (`Broken local-open link`) блокирует final export и переводит draft export в `draft_with_notice`.
 
 ## Export report
 
-Export report содержит commit SHA, export type, package name, included files, excluded files, open issues snapshot, validation checks, residual risks, next step и concept state update result.
+Export report содержит машинные поля: commit SHA, export type, package name, included files, excluded files, open issues snapshot, validation checks, residual risks, next step и concept state update result.
 
-## State update contract
+## Обновление state
 
-After export update concept `state.json`: `export_status`, `last_export_report`, `last_exported_at`, `last_export_package`, `open_issues_snapshot`, `readiness_status`, `next_expected_step`. Persistence failure blocks export completion.
+После export обнови concept `state.json`: `export_status`, `last_export_report`, `last_exported_at`, `last_export_package`, `open_issues_snapshot`, `readiness_status`, `next_expected_step`. Ошибка сохранения блокирует завершение export.

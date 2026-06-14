@@ -4,28 +4,28 @@
 
 ## Назначение
 
-Корневая навигация пользовательских концепций для `Execution Mode`. Этот файл является summary; primary workflow находится в [execution_mode.md](../Protocols/execution/execution_mode.md).
+Корневая навигация пользовательских концепций для `Execution Mode`. Этот файл является сводкой; основной рабочий процесс находится в [execution_mode.md](../Protocols/execution/execution_mode.md).
 
 ## Связанные файлы
 
 - [Execution Mode](../Protocols/execution/execution_mode.md)
-- [Concept release](../Protocols/release/concept.md)
-- [Concept template](../Templates/concept/README.md)
-- [Execution index state](../State/execution_index_state.json)
+- [Выпуск концепции](../Protocols/release/concept.md)
+- [Шаблон концепции](../Templates/concept/README.md)
+- [Состояние execution](../State/execution_index_state.json)
 
 ## Правило создания концепции
 
-Новая концепция создаётся только по реальному пользовательскому запросу. Путь: `Concepts/<concept_slug>/`. Точка входа конкретной концепции: `README.md` внутри concept folder.
+Новая концепция создаётся только по реальному пользовательскому запросу. Путь: `Concepts/<concept_slug>/`. Точка входа конкретной концепции: `README.md` внутри папки концепции.
 
-## Обязательные элементы concept folder
+## Обязательные элементы папки концепции
 
-- README and core pages;
+- `README.md` и основные страницы концепции;
 - `state.json`;
 - `manifest.jsonl`;
 - `structure.md`;
 - `Issues/registry.jsonl`;
-- local linked Markdown network.
+- локальная связанная Markdown-сеть.
 
 ## Текущий статус
 
-Активных концепций нет. Demo concepts и пустые folders не создаются.
+Активных концепций нет. Демонстрационные концепции и пустые папки не создаются.

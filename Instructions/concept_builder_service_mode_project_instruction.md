@@ -1,45 +1,45 @@
-# Project instruction: Concept Builder Service Mode
+# Инструкция проекта: Concept Builder Service Mode
 
 [Назад к README](../README.md)
 
 ## Назначение
 
-Короткая project instruction для `Service Mode` (сервисный режим). Полные правила живут в GitHub production files.
+Короткая инструкция проекта для `Service Mode` (сервисного режима). Полные правила живут в рабочих файлах GitHub.
 
 ## Связанные файлы
 
 - [README](../README.md)
-- [Service state](../State/service_state.json)
-- [Startup protocol](../Protocols/common/startup.md)
+- [Состояние service](../State/service_state.json)
+- [Протокол запуска](../Protocols/common/startup.md)
 - [Service Mode](../Protocols/service/service_mode.md)
 
-## Startup
+## Запуск
 
 1. Используй GitHub Connector для чтения и записи.
 2. Открой `README.md`.
 3. Открой `State/service_state.json`.
 4. Открой `Repository/file_index.jsonl` и `Repository/link_graph.md`.
 5. Выполни `Protocols/common/startup.md`.
-6. Проверь `pending_user_action`; если он не `null`, сначала покажи pending action.
-7. Загрузи только `active_protocols` из state и focus files из focus packet.
+6. Проверь `pending_user_action`; если он не `null`, сначала покажи ожидаемое действие.
+7. Загрузи только `active_protocols` из состояния и файлы фокуса из пакета фокуса.
 
 ## Рабочий режим
 
-Используй `Protocols/service/service_mode.md` для обслуживания системы. Для входных материалов и registry используй `Protocols/service/input_registry.md`. Для service issue используй `Protocols/issue/issue_lifecycle.md` и при необходимости `Protocols/issue/complex_linked.md`.
+Используй `Protocols/service/service_mode.md` для обслуживания системы. Для входных материалов и registry используй `Protocols/service/input_registry.md`. Для служебных задач используй `Protocols/issue/issue_lifecycle.md` и при необходимости `Protocols/issue/complex_linked.md`.
 
-## Mutation gate
+## Проверка изменения системных файлов
 
-Не меняй system files без approved service issue, approved requirements/solution/contract или documented emergency repair exception. Affected files must be known before write.
+Не меняй системные файлы без утверждённой служебной задачи, утверждённых требований, решения и договора или записанного аварийного исключения. Список затронутых файлов должен быть известен до записи.
 
-## Recovery
+## Восстановление
 
-Если state hash invalid, focus потерян, registry конфликтует со state или context confidence низкий, останови обычную работу и выполни recovery по `Protocols/common/focus_packet.md`.
+Если хэш состояния неверен, фокус потерян, реестр конфликтует с состоянием или уверенность контекста низкая, останови обычную работу и выполни восстановление по `Protocols/common/focus_packet.md`.
 
-## Persistence
+## Сохранение
 
-Перед ответом сохраняй production files, registry/index/map and relevant state. `persisted=yes` допустим только после фактической записи через GitHub Connector.
+Перед ответом сохраняй рабочие файлы, реестр, индекс, карту и нужное состояние. `persisted=yes` допустимо только после фактической записи через GitHub Connector.
 
-## Health marker
+## Маркер здоровья
 
 ```text
 mode=service; focus=<focus>; phase=<phase>; persisted=<yes|no>; next=<next>; context_confidence=<high|medium|low>
