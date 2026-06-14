@@ -4,7 +4,7 @@
 
 ## Назначение
 
-Основной протокол для complex issue, child issue, linked issue, защит зависимостей, готовности и распространения результатов.
+Основной протокол для complex issue, child issue, linked issue, защит зависимостей, готовности и распространения результатов. Эти английские токены являются именами типов задач и связей; их смысл указан рядом.
 
 ## Связанные файлы
 
@@ -14,7 +14,7 @@
 
 ## Критерии сложности
 
-Complex issue нужна, если задача имеет независимые рабочие части, утверждение child issue, разные scope, цепочку dependency, отдельный output contract, риск частичного утверждения или риск рекурсии.
+Complex issue нужна, если задача имеет независимые рабочие части, утверждение child issue, разные области scope, цепочку dependency, отдельный output contract, риск частичного утверждения или риск рекурсии.
 
 ## Поля parent issue
 
@@ -37,7 +37,7 @@ Parent state добавляет:
 2. Пользователь может утвердить все, утвердить выбранные, отклонить выбранные, обсудить или изменить child candidates.
 3. Утверждённые children переходят в `open` и получают skeleton из state, reason и requirements.
 4. Отклонённые children получают tombstone row с reason.
-5. Parent может выполнять только части, не заблокированные children; parent закрывается только когда утверждённые children закрыты, waived или явно superseded.
+5. Parent может выполнять только части, не заблокированные children; parent закрывается только когда утверждённые children закрыты, waived или явно superseded. `Waived` означает снятие требования, `superseded` — замену другим решением.
 
 ## Схема связей
 
@@ -91,7 +91,7 @@ contract_allows_cross_file_change: true
 5. строки registry;
 6. link graph или manifest, если изменились файлы.
 
-Если propagation fails, closure блокируется со статусом `blocked: propagation_failed`.
+Если propagation fails, closure блокируется со статусом `blocked: propagation_failed`; то есть сбой распространения блокирует закрытие.
 
 ## Пример dry-run
 
